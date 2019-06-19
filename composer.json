@@ -4,6 +4,7 @@
         "yiisoft/yii2-gii": "2.1.0"
     },
     "require": {
+        "2amigos/yii2-tinymce-widget" : "~1.1",
         "yiisoft/yii2-composer": "2.0.7",        
         "phpspec/php-diff": "1.1.0",         
         "bower-asset/jquery": "3.4.1",         

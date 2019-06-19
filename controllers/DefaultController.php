@@ -10,6 +10,7 @@ use yii\web\UploadedFile;
 use Yii;
 use admin\models\SignupForm;
 use admin\models\LoginForm;
+use admin\models\Post;
 
 class DefaultController extends Controller
 {
@@ -91,7 +92,8 @@ class DefaultController extends Controller
 
     public function actionIndex() : string
     {
-        return $this->render('index');
+        $model = new Post;
+        return $this->render('index', ['model' => $model]);
     }
 
     public function actionAbout() : string
