@@ -10,7 +10,7 @@ $config = [
     'defaultRoute' => 'default/index',
     'aliases' => [
         '@admin' => dirname(__DIR__),
-        '@bower' => '@vendor/bower-asset',
+        //'@bower' => '@vendor/bower-asset',
     ],
     'components' => [
         'db' => $db,
