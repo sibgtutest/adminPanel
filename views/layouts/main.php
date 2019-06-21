@@ -25,29 +25,6 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/default/index']],
-        ['label' => 'About', 'url' => ['/default/about']],
-    ];
-     
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/default/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/default/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/default/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-
-    ?>
-
     <div class="container">
         <?= $content ?>
     </div>
@@ -56,7 +33,6 @@ AppAsset::register($this);
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
