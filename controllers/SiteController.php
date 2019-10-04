@@ -64,11 +64,13 @@ class SiteController extends Controller
      * @return string
      */
     public function actionIndex()
-    {
+    {/*
         if (!\Yii::$app->user->can('updateNews')) {
             throw new ForbiddenHttpException('Access denied');
-        }
-        return $this->render('index');
+        }*/
+        //return $this->render('index');
+        $this->layout = 'default';
+        return $this->render('default');
     }
 
     /**
@@ -100,6 +102,8 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = 'login';
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -108,6 +112,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
+
 
         $model->password = '';
         return $this->render('login', [
@@ -121,7 +126,7 @@ class SiteController extends Controller
      * @return mixed
      */
     public function actionSignup()
-    {
+    {///////////////////////////////////////////////////////////
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
@@ -129,11 +134,15 @@ class SiteController extends Controller
                     return $this->goHome();
                 }
             }
+        }        
+        if (\Yii::$app->user->can('updateNews3')) {
+            $this->layout = 'default';
+            return $this->render('signup', [
+                'model' => $model,
+            ]);
+        } {
+            return $this->goHome();
         }
-
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
     }
 
 
