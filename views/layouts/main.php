@@ -29,8 +29,6 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -38,18 +36,16 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Главная', 'url' => ['/site/index']],
-            ['label' => 'О нас', 'url' => ['/site/about']],
-            ['label' => 'Контакты', 'url' => ['/site/contact']],
-            //['label' => 'Машины', 'url' => ['car/index'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => 'Регистрация', 'url' => ['site/signup'], 'visible' => Yii::$app->user->can('admin3')],
+            ['label' => 'Home', 'url' => ['site/index'], 'visible' => !Yii::$app->user->isGuest],
+            //['label' => 'Регистрация', 'url' => ['site/signup'], 'visible' => Yii::$app->user->can('roleRoot')],
+            ['label' => 'Регистрация', 'url' => ['site/signup']],
             Yii::$app->user->isGuest ? (
-            ['label' => 'Войти', 'url' => ['/site/login']]
+                ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Выйти (' . Yii::$app->user->identity->username . ')',
+                    'Logout (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()

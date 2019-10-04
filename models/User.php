@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use Yii;
@@ -23,6 +24,9 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    const STATUS_DELETED = 0;
+    const STATUS_ACTIVE = 10;
+
     /**
      * @inheritdoc
      */
@@ -41,13 +45,23 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+        ];
+    }
 
     /**
      * @inheritdoc
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id]);
+        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -66,39 +80,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username]);
-    }
-
-    /**
-     * Finds user by password reset token
-     *
-     * @param string $token password reset token
-     * @return static|null
-     */
-    public static function findByPasswordResetToken($token)
-    {
-        if (!static::isPasswordResetTokenValid($token)) {
-            return null;
-        }
-
-        return static::findOne(['password_reset_token' => $token]);
-    }
-
-    /**
-     * Finds out if password reset token is valid
-     *
-     * @param string $token password reset token
-     * @return bool
-     */
-    public static function isPasswordResetTokenValid($token)
-    {
-        if (empty($token)) {
-            return false;
-        }
-
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
-        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
-        return $timestamp + $expire >= time();
+        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -155,18 +137,11 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Generates new password reset token
+     * Авторизация в Yii2 по e-mail вместо username
      */
-    public function generatePasswordResetToken()
+    public static function findByEmail($email)
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+        return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
     }
 
-    /**
-     * Removes password reset token
-     */
-    public function removePasswordResetToken()
-    {
-        $this->password_reset_token = null;
-    }
 }

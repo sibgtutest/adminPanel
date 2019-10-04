@@ -13,7 +13,7 @@ class RbacController extends Controller {
         $auth = Yii::$app->authManager;
 
         $auth->removeAll(); //На всякий случай удаляем старые данные из БД...
-
+/*
         // Создадим роли админа и редактора новостей
         $root = $auth->createRole('roleRoot');
         $user = $auth->createRole('roleUser');
@@ -49,7 +49,6 @@ class RbacController extends Controller {
         $auth->assign($root, 1);
 
         // Назначаем роль editor пользователю с ID 2
-        $auth->assign($user, 2);
+        $auth->assign($user, 2);*/
     }
 }
-

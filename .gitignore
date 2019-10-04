@@ -1,5 +1,3 @@
-.Trash-1000/
-.Trash*
 # phpstorm project files
 .idea
 
@@ -33,4 +31,3 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
-composer.lock

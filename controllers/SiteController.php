@@ -2,17 +2,14 @@
 
 namespace app\controllers;
 
-use app\models\Post;
-use app\models\Mod;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+use app\models\User;
 use app\models\LoginForm;
-use app\models\ContactForm;
 use app\models\SignupForm;
-use yii\web\ForbiddenHttpException;
 
 class SiteController extends Controller
 {
@@ -64,35 +61,8 @@ class SiteController extends Controller
      * @return string
      */
     public function actionIndex()
-    {/*
-        if (!\Yii::$app->user->can('updateNews')) {
-            throw new ForbiddenHttpException('Access denied');
-        }*/
-        //return $this->render('index');
-        $this->layout = 'default';
-        return $this->render('default');
-    }
-
-    /**
-     * Post action.
-     *
-     * @return string
-     */
-    public function actionPost($id)
     {
-        $model = new Post($id);
-        return $this->render('post', ['model' => $model]);
-    }
-
-    /**
-     * Mod action.
-     *
-     * @return string
-     */
-    public function actionMod($id)
-    {
-        $model = new Mod($id);
-        return $this->render('mod', ['model' => $model]);
+        return $this->render('index');
     }
 
     /**
@@ -102,8 +72,6 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        $this->layout = 'login';
-
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -113,11 +81,27 @@ class SiteController extends Controller
             return $this->goBack();
         }
 
-
         $model->password = '';
         return $this->render('login', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Create Admin.
+     */
+    public function actionAdmin() {
+        $model = User::find()->where(['username' => 'admin'])->one();
+        if (empty($model)) {
+            $user = new User();
+            $user->username = 'admin';
+            $user->email = 'farid.lfsibgtu.ru@mail.ru';
+            $user->setPassword('admin');
+            $user->generateAuthKey();
+            if ($user->save()) {
+                echo 'good';
+            }
+        }
     }
 
     /**
@@ -126,25 +110,21 @@ class SiteController extends Controller
      * @return mixed
      */
     public function actionSignup()
-    {///////////////////////////////////////////////////////////
+    {
         $model = new SignupForm();
+
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
                     return $this->goHome();
                 }
             }
-        }        
-        if (\Yii::$app->user->can('roleRoot')) {
-            $this->layout = 'default';
-            return $this->render('signup', [
-                'model' => $model,
-            ]);
-        } {
-            return $this->goHome();
         }
-    }
 
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
+    }
 
     /**
      * Logout action.
@@ -158,48 +138,4 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-/*public function actionError()
-{
-    $exception = Yii::$app->errorHandler->exception;
-    if ($exception !== null) {
-        return $this->render('error', ['exception' => $exception]);
-    }
-}
-public function actionError()
-{
-    $exception = Yii::$app->errorHandler->exception;
-    if ($exception instanceof \yii\web\NotFoundHttpException) {
-        // all non existing controllers+actions will end up here
-        return $this->render('pnf'); // page not found
-    } else {
-      return $this->render('error', ['exception' => $exception]);
-    }
-}*/
 }
