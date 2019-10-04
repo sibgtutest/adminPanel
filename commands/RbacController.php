@@ -12,44 +12,44 @@ class RbacController extends Controller {
     public function actionInit() {
         $auth = Yii::$app->authManager;
 
-        //$auth->removeAll(); //На всякий случай удаляем старые данные из БД...
+        $auth->removeAll(); //На всякий случай удаляем старые данные из БД...
 
         // Создадим роли админа и редактора новостей
-        $admin = $auth->createRole('admin3');
-        $editor = $auth->createRole('editor3');
+        $root = $auth->createRole('roleRoot');
+        $user = $auth->createRole('roleUser');
 
         // запишем их в БД
-        $auth->add($admin);
-        $auth->add($editor);
+        $auth->add($root);
+        $auth->add($user);
 
-        // Создаем разрешения. Например, просмотр админки viewAdminPage и редактирование новости updateNews
-        $viewAdminPage = $auth->createPermission('viewAdminPage3');
-        $viewAdminPage->description = 'Просмотр админки3';
+        // Создаем разрешения. Например, просмотр админки PermissionRoot и редактирование новости PermissionUser
+        $PermissionRoot = $auth->createPermission('PermissionRoot');
+        $PermissionRoot->description = 'Просмотр ЛК root';
 
-        $updateNews = $auth->createPermission('updateNews3');
-        $updateNews->description = 'Редактирование новости3';
+        $PermissionUser = $auth->createPermission('PermissionUser');
+        $PermissionUser->description = 'Просмотр ЛК user';
 
         // Запишем эти разрешения в БД
-        $auth->add($viewAdminPage);
-        $auth->add($updateNews);
+        $auth->add($PermissionRoot);
+        $auth->add($PermissionUser);
 
-        // Теперь добавим наследования. Для роли editor мы добавим разрешение updateNews,
-        // а для админа добавим наследование от роли editor и еще добавим собственное разрешение viewAdminPage
+        // Теперь добавим наследования. Для роли user мы добавим разрешение PermissionUser,
+        // а для админа добавим наследование от роли user и еще добавим собственное разрешение PermissionRoot
 
         // Роли «Редактор новостей» присваиваем разрешение «Редактирование новости»
-        $auth->addChild($editor,$updateNews);
+        $auth->addChild($user,$PermissionUser);
 
         // админ наследует роль редактора новостей. Он же админ, должен уметь всё! :D
-        $auth->addChild($admin, $editor);
+        $auth->addChild($root, $user);
 
         // Еще админ имеет собственное разрешение - «Просмотр админки»
-        $auth->addChild($admin, $viewAdminPage);
+        $auth->addChild($root, $PermissionRoot);
 
         // Назначаем роль admin пользователю с ID 1
-        $auth->assign($admin, 1);
+        $auth->assign($root, 1);
 
         // Назначаем роль editor пользователю с ID 2
-        $auth->assign($editor, 22);
+        $auth->assign($user, 2);
     }
 }
 

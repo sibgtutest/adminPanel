@@ -135,7 +135,7 @@ class SiteController extends Controller
                 }
             }
         }        
-        if (\Yii::$app->user->can('updateNews3')) {
+        if (\Yii::$app->user->can('roleRoot')) {
             $this->layout = 'default';
             return $this->render('signup', [
                 'model' => $model,
