@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\User;
 use app\models\LoginForm;
 use app\models\SignupForm;
+use app\models\StudForm;
 
 class SiteController extends Controller
 {
@@ -27,6 +28,39 @@ class SiteController extends Controller
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['signup'],
+                'rules' => [
+                    [
+                        'actions' => ['signup'],
+                        'allow' => true,
+                        'roles' => ['roleRoot'],
+                    ],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['stud'],
+                'rules' => [
+                    [
+                        'actions' => ['stud'],
+                        'allow' => true,
+                        'roles' => ['roleStud'],
+                    ],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['Contactdetails'],
+                'rules' => [
+                    [
+                        'actions' => ['Contactdetails'],
+                        'allow' => true,
+                        'roles' => ['roleStud'],
                     ],
                 ],
             ],
@@ -62,7 +96,43 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        if (\Yii::$app->user->can('roleStud')) {
+            return Yii::$app->response->redirect(['site/stud']);
+        } {
+            return $this->render('index');
+        }
+    }
+
+    /**
+     * Displays homepage Stud.
+     *
+     * @return string
+     */
+    public function actionStud()
+    {
+        return $this->render('stud');
+    }
+
+    /**
+     * Displays homepage Stud.
+     *
+     * @return string
+     */
+    public function actionContactdetails($id)
+    {
+        $stud = User::findOne($id);
+        $model = new StudForm();
+        if ($model->load(Yii::$app->request->post())) {
+            $stud = $model->update($id);
+            return $this->render('Contactdetails', [
+                'stud' => $stud,
+            ]);
+            
+        }
+        return $this->render('Contactdetails', [
+            'stud' => $stud,
+        ]);
+
     }
 
     /**
@@ -74,11 +144,17 @@ class SiteController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
+            
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            if (\Yii::$app->user->can('roleStud')) {
+                //return '123';
+                return Yii::$app->response->redirect(['site/stud']);
+            } {
+                return $this->goBack();
+            }
         }
 
         $model->password = '';
@@ -88,9 +164,9 @@ class SiteController extends Controller
     }
 
     /**
-     * Create Admin.
+     * admin is created once.
      */
-    public function actionAdmin() {
+    /*public function actionAdmin() {
         $model = User::find()->where(['username' => 'admin'])->one();
         if (empty($model)) {
             $user = new User();
@@ -102,7 +178,7 @@ class SiteController extends Controller
                 echo 'good';
             }
         }
-    }
+    }*/
 
     /**
      * Форма регистрации.
