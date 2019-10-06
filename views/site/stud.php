@@ -14,7 +14,7 @@ $this->title = 'Электронная информационно-образов
     <div class="body-content">
         <div class="row">
             <div class="col-lg-4">
-                <p><?= Html::a("Контактные данные &raquo;", ['site/contactdetails', 'id'=>5]); ?></p>
+                <p><?= Html::a("Контактные данные &raquo;", ['site/contactdetails']); ?></p>
             </div>
             <div class="col-lg-4">
                 <p><a class="btn btn-default" href="#">Учебный план &raquo;</a></p>

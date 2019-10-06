@@ -14,6 +14,15 @@ class StudForm extends Model
     public $username;
     public $email;
     public $password;
+    public $studname;
+    public $middlename;
+    public $familyname;
+    public $birthdate;
+    public $yearset;
+    public $formeducation;
+    public $lineeducation;
+    public $status;
+    
     /**
      * @inheritdoc
      */
@@ -22,15 +31,30 @@ class StudForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This username has already been taken.'],
+            //['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
+            //['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+            ['studname', 'trim'],
+            ['studname', 'string', 'max' => 255],
+            ['middlename', 'trim'],
+            ['middlename', 'string', 'max' => 255],
+            ['familyname', 'trim'],
+            ['familyname', 'string', 'max' => 255],
+            ['birthdate', 'date', 'format' => 'm-d-Y'],
+            ['yearset', 'number', 'min' => 2010],
+            ['yearset', 'number', 'max' => 2100],
+            ['formeducation', 'trim'],
+            ['formeducation', 'string', 'max' => 255],
+            ['lineeducation', 'trim'],
+            ['lineeducation', 'string', 'max' => 255],
+            ['status', 'trim'],
+            ['status', 'string', 'max' => 255],
         ];
     }
 
@@ -39,19 +63,33 @@ class StudForm extends Model
      *
      * @return User|null the saved model or null if saving fails
      */
-    public function update($id)
+    public function signup()
     {
 
         if (!$this->validate()) {
             return null;
         }
-
-        $user = User::findOne($id);
+        $id = \Yii::$app->user->identity->id;
+        //$user = new User();
+        $user = User::findOne($id);//::findByEmail($this->email);
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        return $user->save() ? $user : null;
+        if (!($contactdetails = Contactdetails::findOne(['userid' => $id]))) {
+            $contactdetails = new Contactdetails();
+        }
+        $contactdetails->userid =  $id;
+        $contactdetails->studname =  $this->studname;
+        $contactdetails->middlename =  $this->middlename;
+        $contactdetails->familyname =  $this->familyname;
+        $contactdetails->birthdate =  $this->birthdate;
+        $contactdetails->yearset =  $this->yearset;
+        $contactdetails->formeducation =  $this->formeducation;
+        $contactdetails->lineeducation =  $this->lineeducation;
+        $contactdetails->status =  $this->status;
+
+        return ($user->save() && $contactdetails->save()) ? $user : null;
     }
 
 }

@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\User;
+use app\models\Contactdetails;
 use app\models\LoginForm;
 use app\models\SignupForm;
 use app\models\StudForm;
@@ -39,28 +40,6 @@ class SiteController extends Controller
                         'actions' => ['signup'],
                         'allow' => true,
                         'roles' => ['roleRoot'],
-                    ],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['stud'],
-                'rules' => [
-                    [
-                        'actions' => ['stud'],
-                        'allow' => true,
-                        'roles' => ['roleStud'],
-                    ],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['Contactdetails'],
-                'rules' => [
-                    [
-                        'actions' => ['Contactdetails'],
-                        'allow' => true,
-                        'roles' => ['roleStud'],
                     ],
                 ],
             ],
@@ -96,7 +75,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        if (\Yii::$app->user->can('roleStud')) {
+        if (!\Yii::$app->user->isGuest) {
             return Yii::$app->response->redirect(['site/stud']);
         } {
             return $this->render('index');
@@ -110,7 +89,11 @@ class SiteController extends Controller
      */
     public function actionStud()
     {
-        return $this->render('stud');
+        if (!\Yii::$app->user->isGuest) {
+            return $this->render('stud');
+        } {
+        return $this->render('index');
+        }
     }
 
     /**
@@ -118,21 +101,57 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionContactdetails($id)
+    public function actionContactdetails()
     {
-        $stud = User::findOne($id);
         $model = new StudForm();
-        if ($model->load(Yii::$app->request->post())) {
-            $stud = $model->update($id);
-            return $this->render('Contactdetails', [
-                'stud' => $stud,
-            ]);
-            
-        }
-        return $this->render('Contactdetails', [
-            'stud' => $stud,
-        ]);
 
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        }
+        $id = \Yii::$app->user->identity->id;
+        $user = User::findOne($id);
+        $model->username = $user->username;
+        $model->email = $user->email;
+        if (!($contactdetails = Contactdetails::findOne(['userid' => $id]))) {
+            $contactdetails = new Contactdetails();
+        }
+        $model->studname = $contactdetails->studname;
+        $model->middlename = $contactdetails->middlename;
+        $model->familyname = $contactdetails->familyname;
+        $model->birthdate = $contactdetails->birthdate;
+        $model->yearset = $contactdetails->yearset;
+        $model->formeducation = $contactdetails->formeducation;
+        $model->lineeducation = $contactdetails->lineeducation;
+        $model->status = $contactdetails->status;
+        return $this->render('contactdetails', [
+            'stud' => $model,
+        ]);
+    }
+
+    /**
+     * Форма регистрации.
+     *
+     * @return mixed
+     */
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -164,7 +183,7 @@ class SiteController extends Controller
     }
 
     /**
-     * admin is created once.
+     * admin is created once. Don't delete it.
      */
     /*public function actionAdmin() {
         $model = User::find()->where(['username' => 'admin'])->one();
@@ -179,28 +198,6 @@ class SiteController extends Controller
             }
         }
     }*/
-
-    /**
-     * Форма регистрации.
-     *
-     * @return mixed
-     */
-    public function actionSignup()
-    {
-        $model = new SignupForm();
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
-            }
-        }
-
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Logout action.
