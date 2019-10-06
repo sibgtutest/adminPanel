@@ -20,8 +20,10 @@ $this->title = 'Электронная информационно-образов
                 <p><a class="btn btn-default" href="#">Учебный план &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <p><a class="btn btn-default" href="#">Полотно &raquo;</a></p>
+                <p><a class="btn btn-default" href="#">Общественные достижения студента &raquo;</a></p>
             </div>
+        </div>   
+        <div class="row">
             <div class="col-lg-4">
                 <p><a class="btn btn-default" href="#">Портрет &raquo;</a></p>
             </div>
@@ -31,11 +33,13 @@ $this->title = 'Электронная информационно-образов
             <div class="col-lg-4">
                 <p><a class="btn btn-default" href="#">Научные достижения студента &raquo;</a></p>
             </div>
+        </div>   
+        <div class="row">
             <div class="col-lg-4">
-                <p><a class="btn btn-default" href="#">Статьи студента &raquo;</a></p>
+                <p><a class="btn btn-default" href="#">Полотно &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <p><a class="btn btn-default" href="#">Общественные достижения студента &raquo;</a></p>
+                <p><a class="btn btn-default" href="#">Статьи студента &raquo;</a></p>
             </div>
             <div class="col-lg-4">
                 <p><a class="btn btn-default" href="#">Спортивные достижения студента &raquo;</a></p>

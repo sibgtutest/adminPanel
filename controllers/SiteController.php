@@ -43,6 +43,22 @@ class SiteController extends Controller
                     ],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['stud'],
+                'rules' => [
+                    [
+                        'actions' => ['stud'],
+                        'allow' => false,
+                        'roles' => ['roleRoot'],
+                    ],
+                    [
+                        'actions' => ['stud'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -76,10 +92,11 @@ class SiteController extends Controller
     public function actionIndex()
     {
         if (!\Yii::$app->user->isGuest) {
-            return Yii::$app->response->redirect(['site/stud']);
-        } {
-            return $this->render('index');
-        }
+            if (!\Yii::$app->user->can('roleRoot')) {
+                return Yii::$app->response->redirect(['site/stud']);
+            } 
+        } 
+        return $this->render('index');
     }
 
     /**
