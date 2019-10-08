@@ -3,10 +3,10 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 ?>
 <?php
-    $url = "background-image: url('\/img\/5\/diablo3.png')";
+    $url = "21.png";
 ?>
 
-<div class="wrap" style="background-image: url('/img/5/diablo3.png')">
+<?= "<div class='wrap' style=\"background-image: url('/img/5/" . $model->file . "')\" >" ?>
     <div class="container">
 <?php $form = ActiveForm::begin([
     'options' => ['enctype' => 'multipart/form-data']
