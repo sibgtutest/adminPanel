@@ -15,6 +15,7 @@ use app\models\StudForm;
 use yii\web\UploadedFile;
 use app\models\UploadForm;
 use app\models\Picture;
+use app\models\Canvas;
 
 class SiteController extends Controller
 {
@@ -87,6 +88,41 @@ class SiteController extends Controller
         ];
     }
 
+    public function canvasfilename()
+    {
+        $id= \Yii::$app->user->identity->id;
+        $canvas = Canvas::find()->where(['userid' => [$id]])->limit(1)->One();
+        if ($canvas->filename == '') {
+            $canva = "null.png";
+        } {
+            $canva = $canvas->filename;
+        }
+        return $canva;
+    }
+
+    /**
+     * Displays Canvas.
+     *
+     * @return string
+     */
+    public function actionCanvas()
+    {
+        $this->layout = 'stud';
+        $model = new UploadForm();
+        $id= \Yii::$app->user->identity->id;
+        if(Yii::$app->request->post()) {
+          $model->file = UploadedFile::getInstance($model, 'file');
+            if ($model->validate()) {
+              $path = Yii::$app->params['pathUploads'] . $id . '/';
+              $model->file->saveAs( $path . $model->file);
+              $model->save($id);
+            }
+        }
+        $canva = $this->canvasfilename();
+        //var_dump($pictures);
+        return $this->render('canvas', ['model'=>$model, 'canvas'=>$canva]);
+      } 
+
     /**
      * Displays picture.
      *
@@ -105,9 +141,9 @@ class SiteController extends Controller
               $model->save($id);
             }
         }
-        $pictures = Picture::find()->where(['userid' => [$id]])->limit(1)->One();
+        $canva = $this->canvasfilename();
         //var_dump($pictures);
-        return $this->render('picture', ['model'=>$model, 'pictures'=>$pictures]);
+        return $this->render('picture', ['model'=>$model, 'canvas'=>$canva]);
       } 
 
     /**
@@ -132,9 +168,10 @@ class SiteController extends Controller
      */
     public function actionStud()
     {
+        $canva = $this->canvasfilename();
         //$this->layout = 'stud';
         if (!\Yii::$app->user->isGuest) {
-            return $this->render('stud');
+            return $this->render('stud', ['canvas'=>$canva]);
         } {
         return $this->render('index');
         }
@@ -172,8 +209,10 @@ class SiteController extends Controller
         $model->formeducation = $contactdetails->formeducation;
         $model->lineeducation = $contactdetails->lineeducation;
         $model->status = $contactdetails->status;
+        
+        $canva = $this->canvasfilename();
         return $this->render('contactdetails', [
-            'stud' => $model,
+            'stud' => $model, 'canvas'=>$canva
         ]);
     }
 
