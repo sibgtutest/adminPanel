@@ -12,7 +12,7 @@ use yii\helpers\Html;
 
 <?= $form->field($model, 'file')->fileInput(); ?>
 <!-- $form->field($model, 'description')->textInput(); -->
-<button>Submit</button>
+<button class="btn btn-primary">Submit</button>
  
 <?php ActiveForm::end(); ?>
 </div>

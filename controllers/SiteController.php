@@ -114,6 +114,7 @@ class SiteController extends Controller
           $model->file = UploadedFile::getInstance($model, 'file');
             if ($model->validate()) {
               $path = Yii::$app->params['pathUploads'] . $id . '/';
+              unlink( $path . $this->canvasfilename() );
               $model->file->saveAs( $path . $model->file);
               $model->save($id);
             }
