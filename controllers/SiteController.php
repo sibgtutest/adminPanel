@@ -105,7 +105,8 @@ class SiteController extends Controller
               $model->save($id);
             }
         }
-        $pictures = Picture::find()->where(['userid' => [$id]])->all();
+        $pictures = Picture::find()->where(['userid' => [$id]])->limit(1)->One();
+        //var_dump($pictures);
         return $this->render('picture', ['model'=>$model, 'pictures'=>$pictures]);
       } 
 

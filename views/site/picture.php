@@ -6,7 +6,7 @@ use yii\helpers\Html;
     $url = "21.png";
 ?>
 
-<?= "<div class='wrap' style=\"background-image: url('/img/5/" . $model->file . "')\" >" ?>
+<?= "<div class='wrap' style=\"background-image: url('/img/5/" . $pictures->filename . "')\" >" ?>
     <div class="container">
 <?php $form = ActiveForm::begin([
     'options' => ['enctype' => 'multipart/form-data']
