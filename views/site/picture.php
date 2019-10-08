@@ -2,19 +2,21 @@
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 ?>
-<!-- Html::tag('p', Html::encode($model->file)) -->
-<?
-    foreach ($pictures as $picture) {
-        Html::tag('p', Html::encode($picture)); 
-    }
+<?php
+    $url = "background-image: url('\/img\/5\/diablo3.png')";
 ?>
+
+<div class="wrap" style="background-image: url('/img/5/diablo3.png')">
+    <div class="container">
 <?php $form = ActiveForm::begin([
     'options' => ['enctype' => 'multipart/form-data']
     ]); 
 ?>
- 
+
 <?= $form->field($model, 'file')->fileInput(); ?>
 <!-- $form->field($model, 'description')->textInput(); -->
 <button>Submit</button>
  
 <?php ActiveForm::end(); ?>
+</div>
+</div>

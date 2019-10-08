@@ -94,6 +94,7 @@ class SiteController extends Controller
      */
     public function actionPicture()
     {
+        $this->layout = 'stud';
         $model = new UploadForm();
         $id= \Yii::$app->user->identity->id;
         if(Yii::$app->request->post()) {
@@ -130,6 +131,7 @@ class SiteController extends Controller
      */
     public function actionStud()
     {
+        //$this->layout = 'stud';
         if (!\Yii::$app->user->isGuest) {
             return $this->render('stud');
         } {
@@ -144,6 +146,7 @@ class SiteController extends Controller
      */
     public function actionContactdetails()
     {
+        //$this->layout = 'stud';
         $model = new StudForm();
 
         if ($model->load(Yii::$app->request->post())) {

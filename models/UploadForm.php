@@ -23,7 +23,7 @@ class UploadForm extends Model
         /*if (!$this->validate()) {
             return null;
         }*/
-        $user = new Picture();
+        $user = Picture::find()->where(['userid' => $id])->limit(1)->one();
         $user->userid = $id;
         $user->filename = $this->file;
         $user->description = '12345';
