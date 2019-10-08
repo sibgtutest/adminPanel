@@ -169,7 +169,7 @@ class SiteController extends Controller
     public function actionStud()
     {
         $canva = $this->canvasfilename();
-        //$this->layout = 'stud';
+        $this->layout = 'stud';
         if (!\Yii::$app->user->isGuest) {
             return $this->render('stud', ['canvas'=>$canva]);
         } {
@@ -209,7 +209,7 @@ class SiteController extends Controller
         $model->formeducation = $contactdetails->formeducation;
         $model->lineeducation = $contactdetails->lineeducation;
         $model->status = $contactdetails->status;
-        
+
         $canva = $this->canvasfilename();
         return $this->render('contactdetails', [
             'stud' => $model, 'canvas'=>$canva
