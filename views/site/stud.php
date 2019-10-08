@@ -18,21 +18,21 @@ $this->title = 'Электронная информационно-образов
                 <p><?= Html::a("Контактные данные &raquo;", ['site/contactdetails'], ['class' => 'btn btn-primary']); ?></p>
             </div>
             <div class="col-lg-4">
-                <p><a class="btn btn-default" href="#">Учебный план &raquo;</a></p>
+                <p><?= Html::a("Учебный план &raquo;", ['site/teachingplan'], ['class' => 'btn btn-primary']); ?></p>
             </div>
             <div class="col-lg-4">
-                <p><a class="btn btn-default" href="#">Общественные достижения студента &raquo;</a></p>
+                <p><?= Html::a("Общественные достижения студента &raquo;", ['site/studentssocialachievements'], ['class' => 'btn btn-primary']); ?></p>
             </div>
         </div>   
         <div class="row">
             <div class="col-lg-4">
-                <p><?= Html::a("Полотно &raquo;", ['site/canvas'], ['class' => 'btn btn-primary']); ?></p>
+                <p><?= Html::a("Фоновое изображение &raquo;", ['site/canvas'], ['class' => 'btn btn-primary']); ?></p>
             </div>
             <div class="col-lg-4">
-                <p><a class="btn btn-default" href="#">Учебная работа студента &raquo;</a></p>
+                <p><?= Html::a("Учебная работа студента &raquo;", ['site/studentsacademicwork'], ['class' => 'btn btn-primary']); ?></p>
             </div>
             <div class="col-lg-4">
-                <p><a class="btn btn-default" href="#">Научные достижения студента &raquo;</a></p>
+                <p><?= Html::a("Научные достижения студента;", ['site/studentsscientificachievements'], ['class' => 'btn btn-primary']); ?></p>
             </div>
         </div>   
         <div class="row">
@@ -40,10 +40,10 @@ $this->title = 'Электронная информационно-образов
                 <p><?= Html::a("Портрет &raquo;", ['site/picture'], ['class' => 'btn btn-primary']); ?></p>
             </div>
             <div class="col-lg-4">
-                <p><a class="btn btn-default" href="#">Статьи студента &raquo;</a></p>
+                <p><?= Html::a("Статьи студента &raquo;", ['site/studentarticles'], ['class' => 'btn btn-primary']); ?></p>
             </div>
             <div class="col-lg-4">
-                <p><a class="btn btn-default" href="#">Спортивные достижения студента &raquo;</a></p>
+                <p><?= Html::a("Спортивные достижения студента &raquo;", ['site/studentssportingachievements'], ['class' => 'btn btn-primary']); ?></p>
             </div>
         </div>
 

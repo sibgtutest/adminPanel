@@ -13,7 +13,8 @@ use app\models\LoginForm;
 use app\models\SignupForm;
 use app\models\StudForm;
 use yii\web\UploadedFile;
-use app\models\UploadForm;
+use app\models\UploadCanvas;
+use app\models\UploadPicture;
 use app\models\Picture;
 use app\models\Canvas;
 
@@ -88,6 +89,36 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionTeachingplan()
+    {
+        return $this->render('teachingplan');
+    }
+
+    public function actionStudentarticles()
+    {
+        return $this->render('studentarticles');
+    }
+
+    public function actionStudentsacademicwork()
+    {
+        return $this->render('studentsacademicwork');
+    }
+    
+    public function actionStudentsscientificachievements()
+    {
+        return $this->render('studentsscientificachievements');
+    }
+
+    public function actionStudentssocialachievements()
+    {
+        return $this->render('studentssocialachievements');
+    }
+ 
+    public function actionStudentssportingachievements()
+    {
+        return $this->render('studentssportingachievements');
+    }
+       
     public function canvasfilename()
     {
         $id= \Yii::$app->user->identity->id;
@@ -100,6 +131,18 @@ class SiteController extends Controller
         return $canva;
     }
 
+    public function picturefilename()
+    {
+        $id= \Yii::$app->user->identity->id;
+        $picture = Picture::find()->where(['userid' => [$id]])->limit(1)->One();
+        if ($picture->filename == '') {
+            $pictur = "null.png";
+        } {
+            $pictur = $picture->filename;
+        }
+        return $pictur;
+    }
+
     /**
      * Displays Canvas.
      *
@@ -108,7 +151,7 @@ class SiteController extends Controller
     public function actionCanvas()
     {
         $this->layout = 'stud';
-        $model = new UploadForm();
+        $model = new UploadCanvas();
         $id= \Yii::$app->user->identity->id;
         if(Yii::$app->request->post()) {
           $model->file = UploadedFile::getInstance($model, 'file');
@@ -132,19 +175,21 @@ class SiteController extends Controller
     public function actionPicture()
     {
         $this->layout = 'stud';
-        $model = new UploadForm();
+        $model = new UploadPicture();
         $id= \Yii::$app->user->identity->id;
         if(Yii::$app->request->post()) {
           $model->file = UploadedFile::getInstance($model, 'file');
             if ($model->validate()) {
               $path = Yii::$app->params['pathUploads'] . $id . '/';
+              unlink( $path . $this->picturefilename() );
               $model->file->saveAs( $path . $model->file);
               $model->save($id);
             }
         }
         $canva = $this->canvasfilename();
+        $picture = $this->picturefilename();
         //var_dump($pictures);
-        return $this->render('picture', ['model'=>$model, 'canvas'=>$canva]);
+        return $this->render('picture', ['model'=>$model, 'canvas'=>$canva, 'picture'=>$picture]);
       } 
 
     /**

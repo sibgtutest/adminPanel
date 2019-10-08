@@ -5,9 +5,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
-class UploadForm extends Model
-{
- 
+class UploadCanvas extends Model
+{ 
     public $file;
     //public $description;
     public function rules()
