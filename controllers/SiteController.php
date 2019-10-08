@@ -184,7 +184,7 @@ class SiteController extends Controller
      */
     public function actionContactdetails()
     {
-        //$this->layout = 'stud';
+        $this->layout = 'stud';
         $model = new StudForm();
 
         if ($model->load(Yii::$app->request->post())) {
