@@ -12,6 +12,9 @@ use app\models\Contactdetails;
 use app\models\LoginForm;
 use app\models\SignupForm;
 use app\models\StudForm;
+use yii\web\UploadedFile;
+use app\models\UploadForm;
+use app\models\Picture;
 
 class SiteController extends Controller
 {
@@ -83,6 +86,27 @@ class SiteController extends Controller
             ],
         ];
     }
+
+    /**
+     * Displays picture.
+     *
+     * @return string
+     */
+    public function actionPicture()
+    {
+        $model = new UploadForm();
+        $id= \Yii::$app->user->identity->id;
+        if(Yii::$app->request->post()) {
+          $model->file = UploadedFile::getInstance($model, 'file');
+            if ($model->validate()) {
+              $path = Yii::$app->params['pathUploads'] . $id . '/';
+              $model->file->saveAs( $path . $model->file);
+              $model->save($id);
+            }
+        }
+        $pictures = Picture::find()->where(['userid' => [$id]])->all();
+        return $this->render('picture', ['model'=>$model, 'pictures'=>$pictures]);
+      } 
 
     /**
      * Displays homepage.

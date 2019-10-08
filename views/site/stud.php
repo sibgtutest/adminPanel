@@ -25,7 +25,7 @@ $this->title = 'Электронная информационно-образов
         </div>   
         <div class="row">
             <div class="col-lg-4">
-                <p><a class="btn btn-default" href="#">Портрет &raquo;</a></p>
+                <p><?= Html::a("Портрет &raquo;", ['site/picture']); ?></p>
             </div>
             <div class="col-lg-4">
                 <p><a class="btn btn-default" href="#">Учебная работа студента &raquo;</a></p>
