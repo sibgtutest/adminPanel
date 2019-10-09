@@ -35,7 +35,7 @@ $this->title = 'Учебный план';
 <div class="row">
   <div class="col-xs-12 col-sm-4"><?= $form->field($model, 'filename')->label(false) ?></div>
   <div class="col-xs-12 col-sm-4"><?= $form->field($model, 'description')->label(false) ?></div> 
-  <div class="col-xs-12 col-sm-4"><button class="btn btn-primary">Submit</button></div> 
+  <div class="col-xs-12 col-sm-4"><button class="btn btn-primary">Добавить</button></div> 
 </div>
 <?php ActiveForm::end(); ?>
 </div>
