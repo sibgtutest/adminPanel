@@ -15,9 +15,9 @@ $this->title = 'Портрет';
     'options' => ['enctype' => 'multipart/form-data']
     ]); 
 ?>
-<?= $form->field($model, 'file')->fileInput(); ?>
+<?= $form->field($model, 'file')->fileInput()->label(false); ?>
 <!-- $form->field($model, 'description')->textInput(); -->
-<button class="btn btn-primary">Submit</button>
+<button class="btn btn-primary">Сохранить</button>
 <?php ActiveForm::end(); ?>
 </div>
 <div class="col-md-4">

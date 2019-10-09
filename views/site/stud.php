@@ -10,9 +10,7 @@ $this->title = 'Электронная информационно-образов
     <div class="jumbotron">
         <h1><?php echo $this->title; ?></h1>
     </div>
-
     <div class="body-content"> 
-
 <nav class="navbar navbar-inverse">
   <div class="container-fluid row">
     <ul class="">

@@ -25,8 +25,6 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-
-
     <?php
     NavBar::begin([
         'brandLabel' => '<h6>Электронная информационно-образовательная среда</h6>',

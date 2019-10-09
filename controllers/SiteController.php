@@ -17,6 +17,8 @@ use app\models\UploadCanvas;
 use app\models\UploadPicture;
 use app\models\Picture;
 use app\models\Canvas;
+use app\models\Teachingplan;
+use app\models\UploadTeachingplan;
 
 class SiteController extends Controller
 {
@@ -92,8 +94,14 @@ class SiteController extends Controller
     public function actionTeachingplan()
     {
         $this->layout = 'stud';
-        $canva = $this->canvasfilename();
-        return $this->render('teachingplan');
+        $model = new UploadTeachingplan();
+        $id= \Yii::$app->user->identity->id;
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save($id)) {
+            return 12345;
+        }
+        $models = Teachingplan::findAll(['userid' => $id]);
+        return $this->render('teachingplan', ['teachingplans' => $models, 'model' => $model]);
     }
 
     public function actionStudentarticles()

@@ -14,9 +14,9 @@ class m191007_144640_create_teachingplan_table extends Migration
     {
         $this->createTable('teachingplan', [
             'id' => $this->primaryKey(),
-            'userid' => $this->integer()->notNull()->unique(),
-            'filename' => $this->string(),
-            'description' => $this->string()
+            'userid' => $this->integer()->notNull(),
+            'filename' => $this->string()->notNull(),
+            'description' => $this->string()->notNull()
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 $this->title = 'Учебный план';
 ?>
@@ -15,29 +16,28 @@ $this->title = 'Учебный план';
   <table class="table table-striped">
     <thead>
       <tr class="">
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
+        <th>filename</th>
+        <th>description</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
+    <?php foreach ($teachingplans as $teachingplan) : ?>
       <tr class="">
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
+        <td><?= $teachingplan->filename ?></td>
+        <td><?= $teachingplan->description ?></td>
+        <td>delete</td>
       </tr>
-      <tr class="">
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr class="">
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
+      <?php endforeach; ?>
     </tbody>
   </table>
+<?php $form = ActiveForm::begin(); ?>
+<div class="row">
+  <div class="col-xs-12 col-sm-4"><?= $form->field($model, 'filename')->label(false) ?></div>
+  <div class="col-xs-12 col-sm-4"><?= $form->field($model, 'description')->label(false) ?></div> 
+  <div class="col-xs-12 col-sm-4"><button class="btn btn-primary">Submit</button></div> 
+</div>
+<?php ActiveForm::end(); ?>
 </div>
 </div>
 </div>

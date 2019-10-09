@@ -19,7 +19,7 @@ $this->title = 'Фоновое изображение';
 ?>
 
 <?= $form->field($model, 'file')->label(false)->fileInput(); ?>
-<!-- $form->field($model, 'description')->textInput(); -->
+
 <button class="btn btn-primary">Сохранить</button>
  
 <?php ActiveForm::end(); ?>
