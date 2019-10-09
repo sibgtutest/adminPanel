@@ -91,31 +91,38 @@ class SiteController extends Controller
 
     public function actionTeachingplan()
     {
-        return $this->render('teachingplan');
+        $this->layout = 'stud';
+        $canva = $this->canvasfilename();
+        return $this->render('teachingplan', ['canvas'=>$canva]);
     }
 
     public function actionStudentarticles()
     {
+        $this->layout = 'stud';
         return $this->render('studentarticles');
     }
 
     public function actionStudentsacademicwork()
     {
+        $this->layout = 'stud';
         return $this->render('studentsacademicwork');
     }
     
     public function actionStudentsscientificachievements()
     {
+        $this->layout = 'stud';
         return $this->render('studentsscientificachievements');
     }
 
     public function actionStudentssocialachievements()
     {
+        $this->layout = 'stud';
         return $this->render('studentssocialachievements');
     }
  
     public function actionStudentssportingachievements()
     {
+        $this->layout = 'stud';
         return $this->render('studentssportingachievements');
     }
        

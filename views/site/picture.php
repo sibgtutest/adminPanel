@@ -4,8 +4,9 @@ use yii\helpers\Html;
 
 $this->title = 'Портрет';
 ?>
-<?= "<div class='wrap' style=\"background-image: url('/img/5/" . $canvas . "')\" >" ?>
+<div class="wrap">
     <div class="container">
+    <div class="well well-sm">&shy;</div>
     <div class="jumbotron">
         <h1><?php echo $this->title; ?></h1>
     </div>  
@@ -20,8 +21,12 @@ $this->title = 'Портрет';
 <button class="btn btn-primary">Submit</button>
 <?php ActiveForm::end(); ?>
 </div>
-<div class="col-md-84">
+<div class="col-md-4">
+<div class="thumbnail">
 <?= "<img src='/img/5/" . $picture . "' class='img-rounded' alt='Cinque Terre'>" ?>
+</div>
+</div>
+<div class="col-md-4">
 </div>
   </div>
 </div>

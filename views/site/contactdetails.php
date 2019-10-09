@@ -6,9 +6,10 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 $this->title = 'Контактные данные';
 ?>
-<?= "<div class='wrap' style=\"background-image: url('/img/5/" . $canvas . "')\" >" ?>
+<div class="wrap">
     <div class="container">
 <div class="site-contactdetails">
+<div class="well well-sm">&shy;</div>
     <div class="jumbotron">
         <h1><?php echo $this->title; ?></h1>
     </div>

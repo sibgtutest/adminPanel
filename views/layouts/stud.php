@@ -29,15 +29,15 @@ AppAsset::register($this);
 
     <?php
     NavBar::begin([
+        'brandLabel' => 'Электронная информационно-образовательная среда',
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-inverse navbar-fixed-top well-sm',
         ],
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => ['class' => 'navbar-inverse navbar-fixed-top well-sm navbar-nav navbar-right'],
         'items' => [
             //['label' => 'Home', 'url' => ['site/index'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => 'Home', 'url' => ['site/index']],
             ['label' => 'Регистрация', 'url' => ['site/signup'], 'visible' => Yii::$app->user->can('roleRoot')],
             //['label' => 'Регистрация', 'url' => ['site/signup']],
             Yii::$app->user->isGuest ? (

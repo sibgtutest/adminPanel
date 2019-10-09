@@ -6,48 +6,45 @@ use yii\helpers\Html;
 $this->title = 'Электронная информационно-образовательная среда';
 ?>
 <?= "<div class='wrap' style=\"background-image: url('/img/5/" . $canvas . "')\" >" ?>
-    <div class="container">
+<div class="well well-sm">Small Well</div>
 <div class="site-index">
-    <div class="jumbotron">
-        <h1><?php echo $this->title; ?></h1>
-    </div>
 
-    <div class="body-content">
-        <div class="row">
-            <div class="col-lg-4">
-                <p><?= Html::a("Контактные данные &raquo;", ['site/contactdetails'], ['class' => 'btn btn-primary']); ?></p>
-            </div>
-            <div class="col-lg-4">
-                <p><?= Html::a("Учебный план &raquo;", ['site/teachingplan'], ['class' => 'btn btn-primary']); ?></p>
-            </div>
-            <div class="col-lg-4">
-                <p><?= Html::a("Общественные достижения студента &raquo;", ['site/studentssocialachievements'], ['class' => 'btn btn-primary']); ?></p>
-            </div>
-        </div>   
-        <div class="row">
-            <div class="col-lg-4">
-                <p><?= Html::a("Фоновое изображение &raquo;", ['site/canvas'], ['class' => 'btn btn-primary']); ?></p>
-            </div>
-            <div class="col-lg-4">
-                <p><?= Html::a("Учебная работа студента &raquo;", ['site/studentsacademicwork'], ['class' => 'btn btn-primary']); ?></p>
-            </div>
-            <div class="col-lg-4">
-                <p><?= Html::a("Научные достижения студента;", ['site/studentsscientificachievements'], ['class' => 'btn btn-primary']); ?></p>
-            </div>
-        </div>   
-        <div class="row">
-            <div class="col-lg-4">
-                <p><?= Html::a("Портрет &raquo;", ['site/picture'], ['class' => 'btn btn-primary']); ?></p>
-            </div>
-            <div class="col-lg-4">
-                <p><?= Html::a("Статьи студента &raquo;", ['site/studentarticles'], ['class' => 'btn btn-primary']); ?></p>
-            </div>
-            <div class="col-lg-4">
-                <p><?= Html::a("Спортивные достижения студента &raquo;", ['site/studentssportingachievements'], ['class' => 'btn btn-primary']); ?></p>
-            </div>
-        </div>
+<nav class="navbar navbar-inverse">
+<div class="container-fluid row">
+<div class="nav navbar-nav col-sm-12">&shy;1</div>    
+</div> 
+<div class="container-fluid row">
+<div class="nav navbar-nav col-sm-12">&shy;2</div>    
+</div> 
+  <div class="container-fluid row">
+    <ul class="">
+        <div class="nav navbar-nav col-sm-2">&shy;</div>    
+        <div class="nav navbar-nav col-sm-3"><li><?= Html::a("Контактные данные &raquo;", ['site/contactdetails']); ?></li></div>
+        <div class="nav navbar-nav col-sm-3"><li><?= Html::a("Учебный план &raquo;", ['site/teachingplan']); ?></li></div>
+        <div class="nav navbar-nav col-sm-3"><li><?= Html::a("Общественные достижения студента &raquo;", ['site/studentssocialachievements']); ?></li></div>
+        <div class="nav navbar-nav col-sm-1">&shy;</div>
+    </ul>
+  </div> 
+  <div class="container-fluid row">
+    <ul class="">
+        <div class="nav navbar-nav col-sm-2">&shy;</div>    
+        <div class="nav navbar-nav col-sm-3"><li><?= Html::a("Фоновое изображение &raquo;", ['site/canvas']); ?></li></div>
+        <div class="nav navbar-nav col-sm-3"><li><?= Html::a("Учебная работа студента &raquo;", ['site/studentsacademicwork']); ?></li></div>
+        <div class="nav navbar-nav col-sm-3"><li><?= Html::a("Научные достижения студента;", ['site/studentsscientificachievements']); ?></li></div>
+        <div class="nav navbar-nav col-sm-1">&shy;</div>
+    </ul>
+  </div>
+  <div class="container-fluid row">
+    <ul class="">
+        <div class="nav navbar-nav col-sm-2">&shy;</div>    
+        <div class="nav navbar-nav col-sm-3"><li><?= Html::a("Портрет &raquo;", ['site/picture']); ?></li></div>
+        <div class="nav navbar-nav col-sm-3"><li><?= Html::a("Статьи студента &raquo;", ['site/studentarticles']); ?></li></div>
+        <div class="nav navbar-nav col-sm-3"><li><?= Html::a("Спортивные достижения студента &raquo;", ['site/studentssportingachievements']); ?></li></div>
+        <div class="nav navbar-nav col-sm-1">&shy;</div>
+    </ul>
+  </div>
+</nav>
 
-    </div>
 </div>
-</div>
+
 </div>
