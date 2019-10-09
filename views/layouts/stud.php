@@ -31,7 +31,7 @@ AppAsset::register($this);
     NavBar::begin([
         'brandLabel' => '<h6>Электронная информационно-образовательная среда</h6>',
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top well-sm',
+            'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     echo Nav::widget([

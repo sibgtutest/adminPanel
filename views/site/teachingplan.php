@@ -12,7 +12,7 @@ $this->title = 'Учебный план';
         <h1><?php echo $this->title; ?></h1>
     </div>  
   <p>The .table-striped class adds zebra-stripes to a table:</p>            
-  <table class="table">
+  <table class="table table-striped">
     <thead>
       <tr class="">
         <th>Firstname</th>

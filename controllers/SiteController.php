@@ -93,7 +93,7 @@ class SiteController extends Controller
     {
         $this->layout = 'stud';
         $canva = $this->canvasfilename();
-        return $this->render('teachingplan', ['canvas'=>$canva]);
+        return $this->render('teachingplan');
     }
 
     public function actionStudentarticles()
@@ -193,10 +193,9 @@ class SiteController extends Controller
               $model->save($id);
             }
         }
-        $canva = $this->canvasfilename();
         $picture = $this->picturefilename();
         //var_dump($pictures);
-        return $this->render('picture', ['model'=>$model, 'canvas'=>$canva, 'picture'=>$picture]);
+        return $this->render('picture', ['model'=>$model, 'picture'=>$picture]);
       } 
 
     /**
@@ -263,10 +262,8 @@ class SiteController extends Controller
         $model->lineeducation = $contactdetails->lineeducation;
         $model->status = $contactdetails->status;
 
-        $canva = $this->canvasfilename();
         return $this->render('contactdetails', [
-            'stud' => $model, 'canvas'=>$canva
-        ]);
+            'stud' => $model]);
     }
 
     /**

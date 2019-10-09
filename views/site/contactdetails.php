@@ -24,9 +24,13 @@ $this->title = 'Контактные данные';
         ],
     ]); ?>
 <div class="col-sm-4">
-        <?= $form->field($stud, 'username')  ?>
+        <?= $form->field($stud, 'username', [
+    "template" => "<label><div class=\"col-lg-12\">Имя пользователя</div></label>\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>"
+])  ?>
         <?= $form->field($stud, 'email') ?>
-        <?=  $form->field($stud, 'password') ?>
+        <?=  $form->field($stud, 'password', [
+    "template" => "<label><div class=\"col-lg-12\">Пароль</div></label>\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>"
+]) ?>
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
@@ -35,20 +39,34 @@ $this->title = 'Контактные данные';
         </div>
 </div>
 <div class="col-sm-4">
-        <?= $form->field($stud, 'studname')  ?>
-        <?= $form->field($stud, 'middlename')  ?>    
-        <?= $form->field($stud, 'familyname')  ?>  
-        <?= $form->field($stud, 'birthdate')->textInput(['type' => 'date', 'format' => 'm-d-Y']);  ?>
+        <?= $form->field($stud, 'studname', [
+    "template" => "<label><div class=\"col-lg-12\">Имя</div></label>\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>"
+])  ?>
+        <?= $form->field($stud, 'middlename', [
+    "template" => "<label><div class=\"col-lg-12\">Отчество</div></label>\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>"
+])  ?>    
+        <?= $form->field($stud, 'familyname', [
+    "template" => "<label><div class=\"col-lg-12\">Фамилия</div></label>\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>"
+])  ?>  
+        <?= $form->field($stud, 'birthdate', [
+    "template" => "<label><div class=\"col-lg-12\">Дата рождения</div></label>\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>"
+])->textInput(['type' => 'date', 'format' => 'm-d-Y']);  ?>
          
 </div>
 <div class="col-sm-4">
-        <?= $form->field($stud, 'yearset')  ?>  
-        <?= $form->field($stud, 'formeducation')->dropDownList([
+        <?= $form->field($stud, 'yearset', [
+    "template" => "<label><div class=\"col-lg-12\">Год набора</div></label>\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>"
+])  ?>  
+        <?= $form->field($stud, 'formeducation', [
+    "template" => "<label><div class=\"col-lg-12\">Форма обучения</div></label>\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>"
+])->dropDownList([
                                                     'Очная форма' => 'Очная форма',
                                                     'Заочная форма' => 'Заочная форма',
                                                     'Очная-заочная форма' => 'Очная-заочная форма'
         ]);  ?>  
-        <?= $form->field($stud, 'lineeducation')->dropDownList([
+        <?= $form->field($stud, 'lineeducation', [
+    "template" => "<label><div class=\"col-lg-12\">Направление подготовки</div></label>\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>"
+])->dropDownList([
 '09.03.01 Информатика и вычислительная техника' => '09.03.01 Информатика и вычислительная техника',
 '39.03.02 Социальная работа' => '39.03.02 Социальная работа',
 '38.03.01 Экономика' => '38.03.01 Экономика',
@@ -58,7 +76,9 @@ $this->title = 'Контактные данные';
 '15.03.02 Технологические машины и оборудование' => '15.03.02 Технологические машины и оборудование',
 '15.04.02 Технологические машины и оборудование' => '15.04.02 Технологические машины и оборудование',
         ]);  ?> 
-        <?= $form->field($stud, 'status')->dropDownList([
+        <?= $form->field($stud, 'status', [
+    "template" => "<label><div class=\"col-lg-12\">Статус</div></label>\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>"
+])->dropDownList([
                                                     'Студент' => 'Студент',
         ]);    ?>  
 </div>
