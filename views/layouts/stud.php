@@ -35,7 +35,7 @@ AppAsset::register($this);
         ],
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-inverse navbar-fixed-top well-sm navbar-nav navbar-right'],
+        'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             //['label' => 'Home', 'url' => ['site/index'], 'visible' => !Yii::$app->user->isGuest],
             ['label' => 'Регистрация', 'url' => ['site/signup'], 'visible' => Yii::$app->user->can('roleRoot')],
