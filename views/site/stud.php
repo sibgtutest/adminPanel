@@ -30,7 +30,7 @@ $this->title = 'Электронная информационно-образов
         <div class="nav navbar-nav col-sm-2">&shy;</div>    
         <div class="nav navbar-nav col-sm-3"><li><?= Html::a("Фоновое изображение &raquo;", ['site/canvas']); ?></li></div>
         <div class="nav navbar-nav col-sm-3"><li><?= Html::a("Учебная работа студента &raquo;", ['site/studentsacademicwork']); ?></li></div>
-        <div class="nav navbar-nav col-sm-3"><li><?= Html::a("Научные достижения студента;", ['site/studentsscientificachievements']); ?></li></div>
+        <div class="nav navbar-nav col-sm-3"><li><?= Html::a("Научные достижения студента &raquo;", ['site/studentsscientificachievements']); ?></li></div>
         <div class="nav navbar-nav col-sm-1">&shy;</div>
     </ul>
   </div>

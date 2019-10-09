@@ -6,7 +6,6 @@ $this->title = 'Портрет';
 ?>
 <div class="wrap">
     <div class="container">
-    <div class="well well-sm">&shy;</div>
     <div class="jumbotron">
         <h1><?php echo $this->title; ?></h1>
     </div>  

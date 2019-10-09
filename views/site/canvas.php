@@ -7,7 +7,6 @@ $this->title = 'Фоновое изображение';
 
 <?= "<div class='wrap' style=\"background-image: url('/img/5/" . $canvas . "')\" >" ?>
     <div class="container">
-    <div class="well well-sm">&shy;</div>
     <div class="jumbotron">
         <h1><?php echo $this->title; ?></h1>
     </div>    
