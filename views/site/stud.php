@@ -15,7 +15,7 @@ $this->title = 'Электронная информационно-образов
   <div class="container-fluid row">
     <ul class="">
         <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Контактные данные &raquo;", ['site/contactdetails']); ?></li></div>
-        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Учебный план &raquo;", ['site/teachingplan']); ?></li></div>
+        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Учебный план &raquo;", ['teachingplan/index']); ?></li></div>
         <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Общественные достижения студента &raquo;", ['site/studentssocialachievements']); ?></li></div>
     </ul>
   </div> 

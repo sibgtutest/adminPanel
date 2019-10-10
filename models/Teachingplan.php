@@ -3,19 +3,47 @@
 namespace app\models;
 
 use Yii;
-use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 
 /**
- * Canvas model
+ * This is the model class for table "teachingplan".
  *
- * @property integer $id
- * @property integer $userid
+ * @property int $id
+ * @property int $userid
  * @property string $filename
  * @property string $description
  */
-class Teachingplan extends ActiveRecord
+class Teachingplan extends \yii\db\ActiveRecord
 {
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'teachingplan';
+    }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['userid', 'filename', 'description'], 'required'],
+            [['userid'], 'integer'],
+            [['filename', 'description'], 'string', 'max' => 255],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'userid' => 'Userid',
+            'filename' => 'Filename',
+            'description' => 'Description',
+        ];
+    }
 }
