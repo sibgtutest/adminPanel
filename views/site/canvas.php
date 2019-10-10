@@ -5,7 +5,7 @@ use yii\helpers\Html;
 $this->title = 'Фоновое изображение';
 ?>
 
-<?= "<div class='wrap' style=\"background-image: url('/img/5/" . $canvas . "')\" >" ?>
+<?= "<div class='wrap' style=\"background-size: cover; background-position: center; width: 100%; height: 100%; background-image: url('/img/5/" . $canvas . "')\" >" ?>
     <div class="container">
     <div class="jumbotron">
         <h1><?php echo $this->title; ?></h1>

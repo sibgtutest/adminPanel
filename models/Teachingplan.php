@@ -42,8 +42,8 @@ class Teachingplan extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'userid' => 'Userid',
-            'filename' => 'Filename',
-            'description' => 'Description',
+            'filename' => 'Имя файла',
+            'description' => 'Описание',
         ];
     }
 }
