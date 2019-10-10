@@ -27,7 +27,6 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
     <?php
     NavBar::begin([
-        'brandLabel' => '<h6>Электронная информационно-образовательная среда</h6>',
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
