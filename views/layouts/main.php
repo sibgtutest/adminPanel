@@ -37,11 +37,11 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             //['label' => 'Home', 'url' => ['site/index'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => 'Home', 'url' => ['site/index']],
+            ['label' => 'Главная', 'url' => ['site/index']],
             ['label' => 'Регистрация', 'url' => ['site/signup'], 'visible' => Yii::$app->user->can('roleRoot')],
             //['label' => 'Регистрация', 'url' => ['site/signup']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => 'Авторизоваться', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')

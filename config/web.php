@@ -11,7 +11,10 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'language'=>'ru',
+    'sourceLanguage'=>'ru',
     'components' => [
+        
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'PWP1Ki0vIWZ0rLVEaqQu0NCtpiFnxqt1',
