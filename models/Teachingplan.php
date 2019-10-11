@@ -30,7 +30,7 @@ class Teachingplan extends \yii\db\ActiveRecord
         return [
             [['userid', 'filename', 'description'], 'required'],
             [['userid'], 'integer'],
-            [['filename', 'description'], 'string', 'max' => 255],
+            [['description'], 'string', 'max' => 255],
         ];
     }
 

@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Teachingplan;
+use app\models\Teachingplancreate;
+use yii\web\UploadedFile;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -53,9 +55,20 @@ class TeachingplanController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        /*return $this->render('view', [
             'model' => $this->findModel($id),
-        ]);
+        ]);*/
+
+        
+        $dataProvider = Teachingplan::find()->where(['id' => $id])->limit(1)->one();
+        $filename = $dataProvider->filename;
+        $id= \Yii::$app->user->identity->id;   
+        return $this->redirect('/img/' . $id . '/' . $filename);
+        /*//return $dataProvider->filename;
+        $i = \Yii::$app->user->identity->id;
+        $path = Yii::$app->params['pathUploads'] . $i . '/';
+        //return $path;
+        return \Yii::$app->response->sendContentAsFile($path, $filename, ['inline'=>true]);*/
     }
 
     /**
@@ -65,11 +78,25 @@ class TeachingplanController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Teachingplan();
+        $model = new Teachingplancreate();
+        $id= \Yii::$app->user->identity->id;
+        if(Yii::$app->request->post()) {
+          $model->filename = UploadedFile::getInstance($model, 'filename');
+            if ($model->validate()) {
+              $path = Yii::$app->params['pathUploads'] . $id . '/';
+              //unlink( $path . $this->canvasfilename() );
+              $model->filename->saveAs( $path . $model->filename);
+              $model->save($model->filename);
+              //return $this->goBack();
+              return $this->redirect(['teachingplan/index']);
+            }
+        }
+
+        /*$model = new Teachingplan();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        }
+        }*/
 
         return $this->render('create', [
             'model' => $model,

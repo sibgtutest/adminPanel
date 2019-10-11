@@ -180,7 +180,7 @@ class SiteController extends Controller
         $canva = $this->canvasfilename();
         //var_dump($pictures);
         return $this->render('canvas', ['model'=>$model, 'canvas'=>$canva]);
-      } 
+    } 
 
     /**
      * Displays picture.
