@@ -25,7 +25,7 @@ class Teachingplancreate extends Model
         $teachingplan = new Teachingplan();
         $teachingplan->userid = '5';
         $teachingplan->filename = $modelfilename;
-        $teachingplan->description = 'Нет описания';
+        $teachingplan->description = '';
         $teachingplan->save();
 
     }
