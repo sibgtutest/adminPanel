@@ -134,8 +134,8 @@ class TeachingplanController extends Controller
     {
         $userid= \Yii::$app->user->identity->id;
         $path = \Yii::$app->params['pathUploads'] . $userid . '/';
-        //unlink( $path . $this->findModel($id)->filename );
-        unlink( '/home/farid/NetBeansProjects/adminPanel/test/5/public.pdf' );
+        unlink( $path . $this->findModel($id)->filename );
+        //unlink( '/home/farid/NetBeansProjects/adminPanel/test/5/public.pdf' );
         //return $path . $this->findModel($id)->filename;
         $this->findModel($id)->delete();
 
