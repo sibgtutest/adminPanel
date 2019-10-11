@@ -12,6 +12,11 @@ class m191007_150523_create_studentsscientificachievements_table extends Migrati
      */
     public function up()
     {
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        } 
+
         $this->createTable('studentsscientificachievements', [
             'id' => $this->primaryKey(),
             'userid' => $this->integer()->notNull()->unique(),

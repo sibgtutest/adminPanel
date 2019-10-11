@@ -12,6 +12,11 @@ class m191007_150822_create_studentssportingachievements_table extends Migration
      */
     public function up()
     {
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        } 
+
         $this->createTable('studentssportingachievements', [
             'id' => $this->primaryKey(),
             'userid' => $this->integer()->notNull()->unique(),
