@@ -19,9 +19,9 @@ class m191007_144939_create_studentsacademicwork_table extends Migration
 
         $this->createTable('studentsacademicwork', [
             'id' => $this->primaryKey(),
-            'userid' => $this->integer()->notNull()->unique(),
-            'filename' => $this->string(),
-            'description' => $this->string()
+            'userid' => $this->integer()->notNull(),
+            'filename' => $this->string()->notNull(),
+            'description' => $this->string()->notNull()
         ]);
     }
 
