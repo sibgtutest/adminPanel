@@ -19,9 +19,10 @@ class m191007_145223_create_studentarticles_table extends Migration
 
         $this->createTable('studentarticles', [
             'id' => $this->primaryKey(),
-            'userid' => $this->integer()->notNull()->unique(),
+            'userid' => $this->integer()->notNull(),
             'filename' => $this->string(),
-            'description' => $this->string()
+            'description' => $this->string(),
+            'status' => $this->string(64)->defaultValue(0),
         ]);
     }
 

@@ -19,9 +19,10 @@ class m191007_150523_create_studentsscientificachievements_table extends Migrati
 
         $this->createTable('studentsscientificachievements', [
             'id' => $this->primaryKey(),
-            'userid' => $this->integer()->notNull()->unique(),
-            'filename' => $this->string(),
-            'description' => $this->string()
+            'userid' => $this->integer()->notNull(),
+            'filename' => $this->string()->notNull(),
+            'description' => $this->string()->notNull(),
+            'status' => $this->string()->notNull()->defaultValue(0),
         ]);
     }
 

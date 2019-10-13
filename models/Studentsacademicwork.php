@@ -11,6 +11,7 @@ use Yii;
  * @property int $userid
  * @property string $filename
  * @property string $description
+  * @property string $status
  */
 class Studentsacademicwork extends \yii\db\ActiveRecord
 {
@@ -32,7 +33,7 @@ class Studentsacademicwork extends \yii\db\ActiveRecord
             [['filename'], 'unique'],
             [['userid'], 'integer'],
             [['description'], 'string', 'max' => 255],
-            [['status'], 'string', 'max' => 255],
+            [['status'], 'string', 'max' => 64],
         ];
     }
 

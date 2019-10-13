@@ -19,9 +19,10 @@ class m191007_150822_create_studentssportingachievements_table extends Migration
 
         $this->createTable('studentssportingachievements', [
             'id' => $this->primaryKey(),
-            'userid' => $this->integer()->notNull()->unique(),
-            'filename' => $this->string(),
-            'description' => $this->string()
+            'userid' => $this->integer()->notNull(),
+            'filename' => $this->string()->notNull(),
+            'description' => $this->string()->notNull(),
+            'status' => $this->string()->notNull()->defaultValue(0),
         ]);
     }
 

@@ -19,9 +19,10 @@ class m191007_145724_create_studentssocialachievements_table extends Migration
 
         $this->createTable('studentssocialachievements', [
             'id' => $this->primaryKey(),
-            'userid' => $this->integer()->notNull()->unique(),
-            'filename' => $this->string(),
-            'description' => $this->string()
+            'userid' => $this->integer()->notNull(),
+            'filename' => $this->string()->notNull(),
+            'description' => $this->string()->notNull(),
+            'status' => $this->string()->notNull()->defaultValue(0),
         ]);
     }
 

@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Teachingplan;
-use app\models\Teachingplancreate;
+use app\models\Studentssocialachievements;
+use app\models\Studentssocialachievementscreate;
 use yii\web\UploadedFile;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -12,11 +12,11 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TeachingplanController implements the CRUD actions for Teachingplan model.
+ * StudentssocialachievementsController implements the CRUD actions for Studentssocialachievements model.
  */
-class TeachingplanController extends Controller
+class StudentssocialachievementsController extends Controller
 {
-    public $layout = 'teachingplan';
+    public $layout = 'studentssocialachievements';
     /**
      * {@inheritdoc}
      */
@@ -33,14 +33,14 @@ class TeachingplanController extends Controller
     }
 
     /**
-     * Lists all Teachingplan models.
+     * Lists all Studentssocialachievements models.
      * @return mixed
      */
     public function actionIndex()
     {
         $userid = \Yii::$app->user->identity->id;
         $dataProvider = new ActiveDataProvider([
-            'query' => Teachingplan::find()->where(['userid' => $userid]),
+            'query' => Studentssocialachievements::find()->where(['userid' => $userid]),
         ]);
 
         return $this->render('index', [
@@ -49,17 +49,17 @@ class TeachingplanController extends Controller
     }
 
     /**
-     * Displays a single Teachingplan model.
+     * Displays a single Studentssocialachievements model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $dataProvider = Teachingplan::find()->where(['id' => $id])->limit(1)->one();
+        $dataProvider = Studentssocialachievements::find()->where(['id' => $id])->limit(1)->one();
         $filename = $dataProvider->filename;
         $i = \Yii::$app->user->identity->id;
-        $file = \Yii::$app->params['pathUploads'] . $i . '/' . 'teachingplan_' . $filename;
+        $file = \Yii::$app->params['pathUploads'] . $i . '/' . 'studentssocialachievements_' . $filename;
         header('Content-Description: File Transfer');
         //header('Content-Type: application/octet-stream');
         header('Content-Type: application/pdf');
@@ -73,21 +73,21 @@ class TeachingplanController extends Controller
     }
 
     /**
-     * Creates a new Teachingplan model.
+     * Creates a new Studentssocialachievements model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Teachingplancreate();
+        $model = new Studentssocialachievementscreate();
         $userid= \Yii::$app->user->identity->id;
         if(Yii::$app->request->post()) {
           $model->filename = UploadedFile::getInstance($model, 'filename');
             if ($model->validate()) {
               $path = Yii::$app->params['pathUploads'] . $userid . '/';
-              $model->filename->saveAs( $path . 'teachingplan_' . $model->filename);
+              $model->filename->saveAs( $path . 'studentssocialachievements_' . $model->filename);
               $model->save($model->filename);
-              return $this->redirect(['teachingplan/index']);
+              return $this->redirect(['studentssocialachievements/index']);
             }
         }
         return $this->render('create', [
@@ -96,7 +96,7 @@ class TeachingplanController extends Controller
     }
 
     /**
-     * Updates an existing Teachingplan model.
+     * Updates an existing Studentssocialachievements model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -107,7 +107,7 @@ class TeachingplanController extends Controller
         $model = $this->findModel($id);
         $userid= \Yii::$app->user->identity->id;
         $dataProvider = new ActiveDataProvider([
-            'query' => Teachingplan::find()->where(['userid' => $userid]),
+            'query' => Studentssocialachievements::find()->where(['userid' => $userid]),
         ]);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->render('index', [
@@ -120,7 +120,7 @@ class TeachingplanController extends Controller
     }
 
     /**
-     * Deletes an existing Teachingplan model.
+     * Deletes an existing Studentssocialachievements model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -130,7 +130,7 @@ class TeachingplanController extends Controller
     {
         $userid= \Yii::$app->user->identity->id;
         $path = \Yii::$app->params['pathUploads'] . $userid . '/';
-        unlink( $path . 'teachingplan_' . $this->findModel($id)->filename );
+        unlink( $path . 'studentssocialachievements_' . $this->findModel($id)->filename );
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }
@@ -138,27 +138,24 @@ class TeachingplanController extends Controller
     public function actionSave($id)
     {
         \Yii::$app->db->createCommand()
-             ->update('teachingplan', ['status' => 1], ['id' => $id])
+             ->update('studentssocialachievements', ['status' => 1], ['id' => $id])
              ->execute();
         return $this->redirect(['index']);
     }    
 
     /**
-     * Finds the Teachingplan model based on its primary key value.
+     * Finds the Studentssocialachievements model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Teachingplan the loaded model
+     * @return Studentssocialachievements the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Teachingplan::findOne($id)) !== null) {
+        if (($model = Studentssocialachievements::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
-
-
 }
