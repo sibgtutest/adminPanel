@@ -23,7 +23,7 @@ class Teachingplancreate extends Model
         }*/
 
         $teachingplan = new Teachingplan();
-        $teachingplan->userid = '5';
+        $teachingplan->userid = \Yii::$app->user->identity->id;
         $teachingplan->filename = $modelfilename;
         $teachingplan->description = 'Not description';
         $teachingplan->save();

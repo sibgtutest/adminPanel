@@ -138,11 +138,20 @@ class SiteController extends Controller
     {
         $id= \Yii::$app->user->identity->id;
         $canvas = Canvas::find()->where(['userid' => [$id]])->limit(1)->One();
-        if ($canvas->filename == '') {
+        $canva = new Canvas();
+        if (!isset($canvas)) {
+            $canva->filename = "null.png";
+            $canva->userid = $id;
+            $canva->description = 'Not description';
+           //$canva->save;
+        } {
+            $canva = $canvas;
+        }
+        /*if ($canvas->filename == '') {
             $canva = "null.png";
         } {
             $canva = $canvas->filename;
-        }
+        }*/
         return $canva;
     }
 
@@ -213,6 +222,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'stud';
         if (!\Yii::$app->user->isGuest) {
             if (!\Yii::$app->user->can('roleRoot')) {
                 return Yii::$app->response->redirect(['site/stud']);
@@ -228,10 +238,11 @@ class SiteController extends Controller
      */
     public function actionStud()
     {
+        $id= \Yii::$app->user->identity->id;
         $canva = $this->canvasfilename();
         $this->layout = 'stud';
         if (!\Yii::$app->user->isGuest) {
-            return $this->render('stud', ['canvas'=>$canva]);
+            return $this->render('stud', ['canvas'=>$canva, 'id'=>$id]);
         } {
         return $this->render('index');
         }

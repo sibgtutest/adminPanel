@@ -19,7 +19,7 @@ class Studentsacademicwork extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'teachingplan';
+        return 'studentsacademicwork';
     }
 
     /**

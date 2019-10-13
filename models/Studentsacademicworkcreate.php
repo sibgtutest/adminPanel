@@ -23,7 +23,7 @@ class Studentsacademicworkcreate extends Model
         }*/
 
         $studentsacademicwork = new Studentsacademicwork();
-        $studentsacademicwork->userid = '5';
+        $studentsacademicwork->userid = \Yii::$app->user->identity->id;
         $studentsacademicwork->filename = $modelfilename;
         $studentsacademicwork->description = 'Not description';
         $studentsacademicwork->save();

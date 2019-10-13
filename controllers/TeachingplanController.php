@@ -38,8 +38,9 @@ class TeachingplanController extends Controller
      */
     public function actionIndex()
     {
+        $userid = \Yii::$app->user->identity->id;
         $dataProvider = new ActiveDataProvider([
-            'query' => Teachingplan::find(),
+            'query' => Teachingplan::find()->where(['userid' => 6]),
         ]);
 
         return $this->render('index', [
@@ -55,15 +56,33 @@ class TeachingplanController extends Controller
      */
     public function actionView($id)
     {
+        $dataProvider = Teachingplan::find()->where(['id' => $id])->limit(1)->one();
+        $filename = $dataProvider->filename;
+        $i = \Yii::$app->user->identity->id;
+        $file = \Yii::$app->params['pathUploads'] . $i . '/' . 'teachingplan_' . $filename;
+        header('Content-Description: File Transfer');
+        //header('Content-Type: application/octet-stream');
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="'.basename($file).'"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($file));
+        readfile($file);
+        exit;
+
+
         /*return $this->render('view', [
             'model' => $this->findModel($id),
         ]);*/
 
         
-        $dataProvider = Teachingplan::find()->where(['id' => $id])->limit(1)->one();
+       /* $dataProvider = Teachingplan::find()->where(['id' => $id])->limit(1)->one();
         $filename = $dataProvider->filename;
         $id= \Yii::$app->user->identity->id;   
-        return $this->redirect('/img/' . $id . '/' . $filename);
+        return $this->redirect('/img/' . $id . '/' . $filename);*/
+
+
         /*//return $dataProvider->filename;
         $i = \Yii::$app->user->identity->id;
         $path = Yii::$app->params['pathUploads'] . $i . '/';
@@ -79,13 +98,14 @@ class TeachingplanController extends Controller
     public function actionCreate()
     {
         $model = new Teachingplancreate();
-        $id= \Yii::$app->user->identity->id;
+        $userid= \Yii::$app->user->identity->id;
         if(Yii::$app->request->post()) {
           $model->filename = UploadedFile::getInstance($model, 'filename');
             if ($model->validate()) {
-              $path = Yii::$app->params['pathUploads'] . $id . '/';
+              $path = Yii::$app->params['pathUploads'] . $userid . '/';
               //unlink( $path . $this->canvasfilename() );
-              $model->filename->saveAs( $path . $model->filename);
+              $model->filename->saveAs( $path . 'teachingplan_' . $model->filename);////////////////////
+              //$model->userid = $userid;
               $model->save($model->filename);
               //return $this->goBack();
               return $this->redirect(['teachingplan/index']);
@@ -113,9 +133,15 @@ class TeachingplanController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $userid= \Yii::$app->user->identity->id;
+        $dataProvider = new ActiveDataProvider([
+            'query' => Teachingplan::find()->where(['userid' => $userid]),
+        ]);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            //return $this->redirect(['view', 'id' => $model->id]);
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+            ]);
         }
 
         return $this->render('update', [
@@ -134,7 +160,7 @@ class TeachingplanController extends Controller
     {
         $userid= \Yii::$app->user->identity->id;
         $path = \Yii::$app->params['pathUploads'] . $userid . '/';
-        unlink( $path . $this->findModel($id)->filename );
+        unlink( $path . 'teachingplan_' . $this->findModel($id)->filename );
         //unlink( '/home/farid/NetBeansProjects/adminPanel/test/5/public.pdf' );
         //return $path . $this->findModel($id)->filename;
         $this->findModel($id)->delete();

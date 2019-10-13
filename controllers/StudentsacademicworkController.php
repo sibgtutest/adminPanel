@@ -38,8 +38,9 @@ class StudentsacademicworkController extends Controller
      */
     public function actionIndex()
     {
+        $userid= \Yii::$app->user->identity->id;
         $dataProvider = new ActiveDataProvider([
-            'query' => Studentsacademicwork::find(),
+            'query' => Studentsacademicwork::find()->where(['userid' => 6]),
         ]);
 
         return $this->render('index', [
@@ -55,20 +56,20 @@ class StudentsacademicworkController extends Controller
      */
     public function actionView($id)
     {
-        /*return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);*/
-
-        
         $dataProvider = Studentsacademicwork::find()->where(['id' => $id])->limit(1)->one();
         $filename = $dataProvider->filename;
-        $id= \Yii::$app->user->identity->id;   
-        return $this->redirect('/img/' . $id . '/' . $filename);
-        /*//return $dataProvider->filename;
         $i = \Yii::$app->user->identity->id;
-        $path = Yii::$app->params['pathUploads'] . $i . '/';
-        //return $path;
-        return \Yii::$app->response->sendContentAsFile($path, $filename, ['inline'=>true]);*/
+        $file = \Yii::$app->params['pathUploads'] . $i . '/' . 'studentsacademicwork_' . $filename;
+        header('Content-Description: File Transfer');
+        //header('Content-Type: application/octet-stream');
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="'.basename($file).'"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($file));
+        readfile($file);
+        exit;
     }
 
     /**
@@ -79,13 +80,13 @@ class StudentsacademicworkController extends Controller
     public function actionCreate()
     {
         $model = new Studentsacademicworkcreate();
-        $id= \Yii::$app->user->identity->id;
+        $userid= \Yii::$app->user->identity->id;
         if(Yii::$app->request->post()) {
           $model->filename = UploadedFile::getInstance($model, 'filename');
             if ($model->validate()) {
-              $path = Yii::$app->params['pathUploads'] . $id . '/';
+              $path = Yii::$app->params['pathUploads'] . $userid . '/';
               //unlink( $path . $this->canvasfilename() );
-              $model->filename->saveAs( $path . $model->filename);
+              $model->filename->saveAs( $path . 'studentsacademicwork_' . $model->filename);
               $model->save($model->filename);
               //return $this->goBack();
               return $this->redirect(['studentsacademicwork/index']);
@@ -113,9 +114,15 @@ class StudentsacademicworkController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $userid= \Yii::$app->user->identity->id;
+        $dataProvider = new ActiveDataProvider([
+            'query' => Studentsacademicwork::find()->where(['userid' => $userid]),
+        ]);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            //return $this->redirect(['view', 'id' => $model->id]);
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+            ]);
         }
 
         return $this->render('update', [
@@ -134,7 +141,7 @@ class StudentsacademicworkController extends Controller
     {
         $userid= \Yii::$app->user->identity->id;
         $path = \Yii::$app->params['pathUploads'] . $userid . '/';
-        unlink( $path . $this->findModel($id)->filename );
+        unlink( $path . 'studentsacademicwork_' . $this->findModel($id)->filename );
         //unlink( '/home/farid/NetBeansProjects/adminPanel/test/5/public.pdf' );
         //return $path . $this->findModel($id)->filename;
         $this->findModel($id)->delete();
