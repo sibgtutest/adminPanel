@@ -11,6 +11,7 @@ use Yii;
  * @property int $userid
  * @property string $filename
  * @property string $description
+ * @property string $status
  */
 class Teachingplan extends \yii\db\ActiveRecord
 {
@@ -29,8 +30,10 @@ class Teachingplan extends \yii\db\ActiveRecord
     {
         return [
             [['userid', 'filename', 'description'], 'required'],
+            [['filename'], 'unique'],
             [['userid'], 'integer'],
             [['description'], 'string', 'max' => 255],
+            [['status'], 'string', 'max' => 255],
         ];
     }
 
@@ -44,6 +47,7 @@ class Teachingplan extends \yii\db\ActiveRecord
             'userid' => 'Userid',
             'filename' => 'Имя файла',
             'description' => 'Описание',
+            'status' => 'Статус',
         ];
     }
 }

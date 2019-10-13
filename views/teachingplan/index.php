@@ -17,21 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Создать', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-
-    <?= GridView::widget([
+    <?= $this->render('_formsave', [
         'dataProvider' => $dataProvider,
-        'layout'=>"{items}",
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            //'id',
-            //'userid',
-            'filename',
-            'description',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
+    ]) ?>
 
 </div>

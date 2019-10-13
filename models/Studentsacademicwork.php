@@ -29,8 +29,10 @@ class Studentsacademicwork extends \yii\db\ActiveRecord
     {
         return [
             [['userid', 'filename', 'description'], 'required'],
+            [['filename'], 'unique'],
             [['userid'], 'integer'],
             [['description'], 'string', 'max' => 255],
+            [['status'], 'string', 'max' => 255],
         ];
     }
 
@@ -44,6 +46,7 @@ class Studentsacademicwork extends \yii\db\ActiveRecord
             'userid' => 'Userid',
             'filename' => 'Имя файла',
             'description' => 'Описание',
+            'status' => 'Статус',
         ];
     }
 }

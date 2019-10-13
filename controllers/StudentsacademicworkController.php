@@ -26,7 +26,7 @@ class StudentsacademicworkController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['GET'],
                 ],
             ],
         ];
@@ -40,7 +40,7 @@ class StudentsacademicworkController extends Controller
     {
         $userid= \Yii::$app->user->identity->id;
         $dataProvider = new ActiveDataProvider([
-            'query' => Studentsacademicwork::find()->where(['userid' => 6]),
+            'query' => Studentsacademicwork::find()->where(['userid' => $userid]),
         ]);
 
         return $this->render('index', [
@@ -148,6 +148,14 @@ class StudentsacademicworkController extends Controller
 
         return $this->redirect(['index']);
     }
+
+    public function actionSave($id)
+    {
+        \Yii::$app->db->createCommand()
+             ->update('studentsacademicwork', ['status' => 1], ['id' => $id])
+             ->execute();
+        return $this->redirect(['index']);
+    }    
 
     /**
      * Finds the Studentsacademicwork model based on its primary key value.

@@ -26,7 +26,7 @@ class TeachingplanController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['GET'],
                 ],
             ],
         ];
@@ -40,7 +40,7 @@ class TeachingplanController extends Controller
     {
         $userid = \Yii::$app->user->identity->id;
         $dataProvider = new ActiveDataProvider([
-            'query' => Teachingplan::find()->where(['userid' => 6]),
+            'query' => Teachingplan::find()->where(['userid' => $userid]),
         ]);
 
         return $this->render('index', [
@@ -168,6 +168,14 @@ class TeachingplanController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionSave($id)
+    {
+        \Yii::$app->db->createCommand()
+             ->update('teachingplan', ['status' => 1], ['id' => $id])
+             ->execute();
+        return $this->redirect(['index']);
+    }    
+
     /**
      * Finds the Teachingplan model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -183,4 +191,7 @@ class TeachingplanController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
+
 }
