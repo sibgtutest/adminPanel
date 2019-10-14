@@ -90,7 +90,7 @@ class SiteController extends Controller
             ],
         ];
     }
-
+/*
     public function actionTeachingplan()
     {
         $this->layout = 'stud';
@@ -133,7 +133,7 @@ class SiteController extends Controller
         $this->layout = 'stud';
         return $this->render('studentssportingachievements');
     }
-       
+*/   
     public function canvasfilename()
     {
         $id= \Yii::$app->user->identity->id;
@@ -229,6 +229,12 @@ class SiteController extends Controller
             } 
         } 
         return $this->render('index');
+    }
+
+    public function actionChat()
+    {
+        $this->layout = 'chat';
+        return $this->render('chat');
     }
 
     /**
