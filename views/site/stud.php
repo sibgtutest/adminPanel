@@ -2,6 +2,8 @@
 
 /* @var $this yii\web\View */
 use yii\helpers\Html;
+use yii\helpers\Url;
+Yii::setAlias('@chat', 'http://127.0.0.1:8008/');
 
 $this->title = 'Электронная информационно-образовательная среда';
 ?>
@@ -22,7 +24,7 @@ $this->title = 'Электронная информационно-образов
   </div> 
   <div class="container-fluid row">
     <ul class="">
-        <div class="nav navbar-nav col-sm-4"><li></li></div>
+        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Чат &raquo;", Url::to('@chat')); ?></li></div>
         <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Учебная работа студента &raquo;", ['studentsacademicwork/index']); ?></li></div>
         <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Научные достижения студента &raquo;", ['studentsscientificachievements/index']); ?></li></div>
     </ul>

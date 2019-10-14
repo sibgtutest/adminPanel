@@ -41,9 +41,12 @@ AppAsset::register($this);
                 ['label' => 'Авторизоваться', 'url' => ['/site/login']]
             ) : (
                 '<li>'
-                . Html::a('Выход (' . Yii::$app->user->identity->username . ')', ['site/logout'], 
-                                    ['data' => ['method' => 'post'], 
-                                    ['class' => 'white text-center']])
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
                 . '</li>'
                 )   
         ],
