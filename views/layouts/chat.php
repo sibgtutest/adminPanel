@@ -17,7 +17,12 @@ if (Yii::$app->user->isGuest) {
     return Yii::$app->response->redirect(['site/login']);
 } 
 
-$username= \Yii::$app->user->identity->username;
+$userid= \Yii::$app->user->identity->id;
+
+//var_dump($userid);
+//exit;
+
+$contactdetails = Contactdetails::findOne(['userid' => $userid]);
 
 ?>
 <?php $this->beginPage() ?>
@@ -64,13 +69,13 @@ $username= \Yii::$app->user->identity->username;
     NavBar::end();
     ?>
         <?= $content ?>
-<script src="http://192.168.101.5:8008/socket.io/socket.io.js"></script>
+<script src="http://127.0.0.1:8008/socket.io/socket.io.js"></script>
 <?php $this->endBody() ?>
 
     <script type="text/javascript">
         $(document).ready(function () {
             var reload = '123';
-            var socket = io.connect('http://192.168.101.5:8008');
+            var socket = io.connect('http://127.0.0.1:8008');
             var message_txt = $("#message_text");
             function msg(message) {
                 if (message == reload) {
@@ -98,7 +103,7 @@ $username= \Yii::$app->user->identity->username;
 
             $("#message_text").keyup(function (event) {
                 if (event.keyCode == 13) {
-                    var text = '<div class="well"><?php echo $username ?></br><b>' + $("#message_text").val() + '</b></div>';
+                    var text = '<p><b><?php echo $contactdetails->studname . ' ' . $contactdetails->middlename . ' ' . $contactdetails->familyname ?><br/></b>' + $("#message_text").val() + '<br/></p>';
                     if (text.length <= 0)
                         return;
                     $("#message_text").val("");

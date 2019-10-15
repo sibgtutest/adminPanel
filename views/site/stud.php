@@ -3,7 +3,7 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\helpers\Url;
-Yii::setAlias('@chat', 'http://192.168.101.5:8008/');
+Yii::setAlias('@chat', 'http://127.0.0.1:8008/');
 
 $this->title = 'Электронное портфолио обучающегося';
 ?>

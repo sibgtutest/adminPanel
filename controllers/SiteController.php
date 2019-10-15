@@ -235,6 +235,7 @@ class SiteController extends Controller
     public function actionChat()
     {
         $this->layout = 'chat';
+        //$contactdetails = Contactdetails::findOne(['userid' => '5']);
         return $this->render('chat');
     }
 
