@@ -13,6 +13,10 @@ use app\models\Contactdetails;
 
 AppAsset::register($this);
 
+if (Yii::$app->user->isGuest) {
+    return Yii::$app->response->redirect(['site/login']);
+} 
+
 $username= \Yii::$app->user->identity->username;
 
 ?>
@@ -40,7 +44,7 @@ $username= \Yii::$app->user->identity->username;
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            //['label' => 'Home', 'url' => ['site/index'], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Главная', 'url' => ['site/index'], 'visible' => !Yii::$app->user->isGuest],
             ['label' => 'Регистрация', 'url' => ['site/signup'], 'visible' => Yii::$app->user->can('roleRoot')],
             //['label' => 'Регистрация', 'url' => ['site/signup']],
             Yii::$app->user->isGuest ? (
@@ -60,13 +64,13 @@ $username= \Yii::$app->user->identity->username;
     NavBar::end();
     ?>
         <?= $content ?>
-<script src="http://127.0.0.1:8008/socket.io/socket.io.js"></script>
+<script src="http://192.168.101.5:8008/socket.io/socket.io.js"></script>
 <?php $this->endBody() ?>
 
     <script type="text/javascript">
         $(document).ready(function () {
             var reload = '123';
-            var socket = io.connect('http://127.0.0.1:8008');
+            var socket = io.connect('http://192.168.101.5:8008');
             var message_txt = $("#message_text");
             function msg(message) {
                 if (message == reload) {

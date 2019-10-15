@@ -4,50 +4,76 @@
 
 $this->title = 'My Yii Application';
 ?>
-<div class="site-index">
+<div class="wrap">
+<div class="jumbotron">
+<div class="container-fluid">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+<div class="row">
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+<div class="col-sm-4">
+<div class="jumbotron">
+<a href="http://lfsibgu.ru/sveden/education/#docs">
+<p>Доступ к учебным планам, аннотациям рабочих программам дисциплин (модулей), рабочим программам практик</p>
+</a>
+</div>
+</div>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
+<div class="col-sm-4">
+<div class="jumbotron">
+<a href="http://lfsibgu.ru/index.php/ru/elektronnyj-katalog">
+<p>Доступ к изданиям электронных библиотечных систем и электронным образовательным ресурсам, указанным в рабочих программах</p>
+</a>
+</div>
+</div>
 
-    <div class="body-content">
+<div class="col-sm-4">
+<div class="jumbotron">
+<a href="#">
+<p>Фиксация хода образовательного процесса</p>
+</a>
+</div>
+</div>
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+</div>
+<div class="row">
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+<div class="col-sm-4">
+<div class="jumbotron">
+<a href="#">
+<p>Результаты промежуточной аттестации и результаты освоения программы бакалавриата</p>
+</a>
+</div>
+</div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+<div class="col-sm-4">
+<div class="jumbotron">
+<a href="/site/stud">
+<p>Электронное портфолио обучающегося, в том числе сохраненные работы обучающегося, рецензии и оценки на эти работы со стороны любых участников образовательного процесса</p>
+</a>
+</div>
+</div>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+<div class="col-sm-4">
+<div class="jumbotron">
+<a href="/site/chat">
+<p>Взаимодействие между участниками образовательного процесса</p>
+</a>
+</div>
+</div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+</div>
+<div class="row">
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+<div class="col-sm-4">
+<div class="jumbotron">
+<a href="http://lfsibgu.ru/images/IT/rukovodstvo.pdf">
+<p>Руководство пользователя ЭИОС</p>
+</a>
+</div>
+</div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
+</div>
 
-    </div>
+</div>
+</div>
 </div>

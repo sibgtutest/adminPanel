@@ -3,9 +3,9 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\helpers\Url;
-Yii::setAlias('@chat', 'http://127.0.0.1:8008/');
+Yii::setAlias('@chat', 'http://192.168.101.5:8008/');
 
-$this->title = 'Электронная информационно-образовательная среда';
+$this->title = 'Электронное портфолио обучающегося';
 ?>
 <!-- "<div class='wrap' style=\"background-size: cover; background-position: center; width: 100%; height: 100%; background-image: url('/img/" . $id . "/" . $canvas . "')\" >" -->
 <div class="wrap">
@@ -39,4 +39,7 @@ $this->title = 'Электронная информационно-образов
 </nav>
 </div>
 </div>
+
+
+
 </div>

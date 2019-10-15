@@ -225,7 +225,8 @@ class SiteController extends Controller
         $this->layout = 'stud';
         if (!\Yii::$app->user->isGuest) {
             if (!\Yii::$app->user->can('roleRoot')) {
-                return Yii::$app->response->redirect(['site/stud']);
+                //return Yii::$app->response->redirect(['site/stud']);
+                return $this->render('index');
             } 
         } 
         return $this->render('index');
@@ -334,9 +335,10 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if (\Yii::$app->user->can('roleStud')) {
                 //return '123';
-                return Yii::$app->response->redirect(['site/stud']);
+                return Yii::$app->response->redirect(['site/index']);
             } {
-                return $this->goBack();
+                return $this->goBack(); //циклическое перенаправление на странице
+                //return Yii::$app->response->redirect(['site/index']);
             }
         }
 
