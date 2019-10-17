@@ -239,6 +239,12 @@ class SiteController extends Controller
         return $this->render('chat');
     }
 
+    public function actionMychat()
+    {
+        $this->layout = 'mychat';
+        return $this->render('mychat');
+    }
+
     /**
      * Displays homepage Stud.
      *

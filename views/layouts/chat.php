@@ -10,6 +10,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\models\Contactdetails;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 
@@ -33,7 +34,6 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,nofollow" />
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -74,16 +74,12 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var reload = '123';
             var socket = io.connect('http://127.0.0.1:8008');
             var message_txt = $("#message_text");
             function msg(message) {
-                if (message == reload) {
-                    location.reload();
-                } else {
-                    var m = '<div class="msg">' + message + '</div>';
-                    $("#messages").append(m).scrollTop($("#messages")[0].scrollHeight);
-                };
+                message = safe(message);
+                var m = '<div class="msg">' + message + '</div>';
+                $("#messages").append(m).scrollTop($("#messages")[0].scrollHeight);
             }
             function msg_system(message) {
                 var m = '<div class="msg system">' + message + '</div>';
@@ -103,14 +99,34 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
 
             $("#message_text").keyup(function (event) {
                 if (event.keyCode == 13) {
-                    var text = '<p><b><?php echo $contactdetails->studname . ' ' . $contactdetails->middlename . ' ' . $contactdetails->familyname ?><br/></b>' + $("#message_text").val() + '<br/></p>';
+                    //var text = '<p><b><?php echo $contactdetails->studname . ' ' . $contactdetails->middlename . ' ' . $contactdetails->familyname ?><br/></b>' + $("#message_text").val() + '<br/></p>';
+                    
+                    var text = '<?php echo $contactdetails->studname . ' ' . $contactdetails->middlename . ' ' . $contactdetails->familyname . ': «' ?>' + $("#message_text").val() + '».';
                     if (text.length <= 0)
                         return;
                     $("#message_text").val("");
                     socket.emit("message", { message: text });
 
+                    
+                    var chatMsg = $("#msginput").val();
+                    if (chatMsg != '') {
+                        $.ajax({
+                            type: "POST",
+                            url: "http://127.0.0.1:8080/server/saveData.php",
+                            dataType: "json",
+                            data: { chatMsg: chatMsg }
+                        })
+                            .done(function (data) {
+                                socket.emit('chat message', chatMsg);
+                                //mount(data);
+                                $("#msginput").val("");
+                            });
+                    }
+
+
                 }
             });
+
             function safe(str) {
                 return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
             }

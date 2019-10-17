@@ -25,7 +25,7 @@ $this->title = 'Чат';
         class="form-control" 
         name="message_text" 
         placeholder="Additional Info" 
-        autofocus>
+        autofocus">
   </div>                 
     </div>
 </div>
