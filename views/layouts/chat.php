@@ -69,12 +69,12 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
     NavBar::end();
     ?>
         <?= $content ?>
-<script src="http://127.0.0.1:8008/socket.io/socket.io.js"></script>
+<script src="http://127.0.0.1:3000/socket.io/socket.io.js"></script>
 <?php $this->endBody() ?>
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var socket = io.connect('http://127.0.0.1:8008');
+            var socket = io.connect('http://127.0.0.1:3000');
             var message_txt = $("#message_text");
             function msg(message) {
                 message = safe(message);
@@ -106,24 +106,6 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
                         return;
                     $("#message_text").val("");
                     socket.emit("message", { message: text });
-
-                    
-                    var chatMsg = $("#msginput").val();
-                    if (chatMsg != '') {
-                        $.ajax({
-                            type: "POST",
-                            url: "http://127.0.0.1:8080/server/saveData.php",
-                            dataType: "json",
-                            data: { chatMsg: chatMsg }
-                        })
-                            .done(function (data) {
-                                socket.emit('chat message', chatMsg);
-                                //mount(data);
-                                $("#msginput").val("");
-                            });
-                    }
-
-
                 }
             });
 

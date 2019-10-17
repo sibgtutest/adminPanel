@@ -83,7 +83,7 @@
             if (chatMsg != '') {
                 $.ajax({
                     type: "POST",
-                    url: "http://127.0.0.1:8080/server/savedata.php",
+                    url: "http://127.0.0.1:8080/server/saveData.php",
                     dataType: "json",
                     data: { chatMsg: chatMsg }
                 })

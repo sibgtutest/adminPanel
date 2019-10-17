@@ -12,7 +12,9 @@ $this->title = 'Чат';
 <div class="container">
     <div class="demo">
         <div class="chat">
-            <div class="messages" id="messages"></div>
+            <div id="msgbox" class="box">
+                <div class="messages" id="messages"></div>
+            </div>   
         </div>
     </div>
 </div>
