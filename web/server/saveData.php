@@ -5,7 +5,7 @@
  * Time: 01:09
  */
 
-include_once('pdo.php');
+include_once('../../config/pdo.php');
 
 $msg = $_POST['chatMsg'];
 $time = date("Y-m-d H:i:s");
@@ -22,7 +22,8 @@ $exec = $stmt->execute();
  * The user info bellow is a DUMMY
  */
 if($exec) {
-    echo json_encode(['status'=>'saved ok.', 'user'=>'Dummy Guy', 'room'=>1, 'sent_at'=>$time, 'msg'=>$msg]);
+    echo json_encode(['status'=>'saved ok.']);
+    //echo json_encode(['status'=>'saved ok.', 'user'=>'Dummy Guy', 'room'=>1, 'sent_at'=>$time, 'msg'=>$msg]);
 }else{
     echo json_encode(['status'=>'error while saving.']);
 }

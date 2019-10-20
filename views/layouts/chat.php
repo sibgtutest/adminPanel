@@ -38,7 +38,7 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body data-spy="scroll" data-target=".msgbox" data-offset="50">
 <?php $this->beginBody() ?>
     <?php
     NavBar::begin([
@@ -68,7 +68,36 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
     ]);
     NavBar::end();
     ?>
-        <?= $content ?>
+    
+<div class="wrap">
+
+    <div class="navbar-fixed-bottom row-fluid">
+        <div class="navbar-inner">
+            
+            <div class="container">
+                <div class="demo">
+                    <div class="chat">
+                        <div class="msgbox" id="msgbox" class="box">
+                            <div class="messages" id="messages"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon">Чат</span>
+                <input id="message_text" 
+                    id="text" 
+                    type="text" 
+                    class="form-control" 
+                    name="message_text" 
+                    placeholder="Additional Info" 
+                    autofocus">
+            </div>                 
+        </div>
+    </div>
+
+</div>
 <script src="http://127.0.0.1:3000/socket.io/socket.io.js"></script>
 <?php $this->endBody() ?>
 
@@ -79,35 +108,88 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
             function msg(message) {
                 message = safe(message);
                 var m = '<div class="msg">' + message + '</div>';
-                $("#messages").append(m).scrollTop($("#messages")[0].scrollHeight);
+                $("#messages").append(m).scrollTop($("#messages").scrollHeight);
             }
             function msg_system(message) {
                 var m = '<div class="msg system">' + message + '</div>';
                 $("#messages")
-                    .append(m).scrollTop($("#messages")[0].scrollHeight);
+                    .append(m).scrollTop($("#messages").scrollHeight);
             }
             socket.on('connecting', function () {
                 msg_system('Соединение...');
             });
             socket.on('connect', function () {
                 msg_system('Соединение установлено!');
+                getChat();
             });
             socket.on('message', function (data) {
                 msg(data.message);
                 $("#message_text").focus();
+                getChat();
             });
 
+            function getChat() {
+                $.ajax({
+                    type: "POST",
+                    url: "http://127.0.0.1:8080/server/getData.php",
+                    dataType: "json",
+                    data: { room: 1 }
+                })
+                    .done(function (data) {
+                        mount(data.data);
+                        $('#msgbox').scrollTop($('#msgbox').scrollHeight);
+                    });
+
+            }
+
+            function mount(data) {
+                var html = "";
+                var cssclass = "brown-color";
+                var img = '';
+                $.each(data, function (index, chat) {
+                    html += '<div>' + chat.user + ' Dummy Guy <i>' + chat.sent_at + '</i>:</span> ' + chat.message + '</div>';
+                });
+
+                $("#msgbox").html(html);
+            }
+
             $("#message_text").keyup(function (event) {
-                if (event.keyCode == 13) {
+                if (event.keyCode == 13) {/*
                     //var text = '<p><b><?php echo $contactdetails->studname . ' ' . $contactdetails->middlename . ' ' . $contactdetails->familyname ?><br/></b>' + $("#message_text").val() + '<br/></p>';
                     
                     var text = '<?php echo $contactdetails->studname . ' ' . $contactdetails->middlename . ' ' . $contactdetails->familyname . ': «' ?>' + $("#message_text").val() + '».';
                     if (text.length <= 0)
                         return;
                     $("#message_text").val("");
-                    socket.emit("message", { message: text });
+                    socket.emit("message", { message: text });*/
+
+                    //
+                    saveChat();
+                    
+                    return false;
+                    
+                    //
                 }
+                return true;
             });
+
+            function saveChat() {
+                var chatMsg = $("#message_text").val();
+                if (chatMsg != '') {
+                    $.ajax({
+                        type: "POST",
+                        url: "http://127.0.0.1:8080/server/saveData.php",
+                        dataType: "json",
+                        data: { chatMsg: chatMsg }
+                    })
+                        .done(function (data) {
+                            //socket.emit('chat message', chatMsg);
+                            socket.emit("message", { message: chatMsg });
+                            //mount(data);
+                            $("#message_text").val("");
+                        }); 
+                }
+            }
 
             function safe(str) {
                 return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

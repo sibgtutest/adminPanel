@@ -5,7 +5,7 @@
  * Time: 01:09
  */
 
-include_once('pdo.php');
+include_once('../../config/pdo.php');
 
 $room = $_POST['room'];
 $stmt = $pdo->prepare("SELECT * from messages where room = :room order by sent_at asc");
