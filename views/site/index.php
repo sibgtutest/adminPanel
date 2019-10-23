@@ -39,8 +39,8 @@ $this->title = 'My Yii Application';
 
 <div class="col-sm-4">
 <div class="jumbotron">
-<a href="#">
-<p>Результаты промежуточной аттестации и результаты освоения программы бакалавриата</p>
+<a href="http://lfsibgu.ru/images/IT/rukovodstvo.pdf">
+<p>Руководство пользователя ЭИОС</p>
 </a>
 </div>
 </div>
@@ -64,13 +64,7 @@ $this->title = 'My Yii Application';
 </div>
 <div class="row">
 
-<div class="col-sm-4">
-<div class="jumbotron">
-<a href="http://lfsibgu.ru/images/IT/rukovodstvo.pdf">
-<p>Руководство пользователя ЭИОС</p>
-</a>
-</div>
-</div>
+
 
 </div>
 

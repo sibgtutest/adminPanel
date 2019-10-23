@@ -8,20 +8,15 @@ use yii\base\Model;
 /**
  * Signup form
  */
-class SignupForm extends Model
+class SignupstudentForm extends Model
 {
 
     public $username;
     public $email;
     public $password;
-    public $status;
     public $studname;
     public $middlename;
     public $familyname;
-    public $birthdate;
-    public $yearset;
-    public $formeducation;
-    public $lineeducation;
 
     /**
      * @inheritdoc
@@ -40,9 +35,11 @@ class SignupForm extends Model
             ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Этот адрес электронной почты уже был взят.'],
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
-            ['status', 'string'],
+            ['studname', 'required'],
             ['studname', 'string', 'min' => 2, 'max' => 255],
+            ['middlename', 'required'],
             ['middlename', 'string', 'min' => 2, 'max' => 255],
+            ['familyname', 'required'],
             ['familyname', 'string', 'min' => 2, 'max' => 255],
         ];
     }
@@ -55,23 +52,16 @@ class SignupForm extends Model
     public function signup()
     {
 
-        /*if (!$this->validate()) {
+        if (!$this->validate()) {
             return null;
-        }*/
+        }
 
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        $user->status = $this->status;
-        $user->studname = $this->studname;
-        $user->middlename = $this->middlename;
-        $user->familyname = $this->familyname;
-        //$user->save();
-        //return $user;
         return $user->save() ? $user : null;
-        //return $user->save() ? $user : var_dump($user);
     }
 
     /**

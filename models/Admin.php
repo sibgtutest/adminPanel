@@ -9,7 +9,7 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
+ * Admin model
  *
  * @property integer $id
  * @property string $username
@@ -21,26 +21,18 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
- * 
- * @property string $studname
- * @property string $middlename
- * @property string $familyname
- * @property integer $birthdate
- * @property integer $yearset
- * @property string $formeducation
- * @property string $lineeducation
  */
-class User extends ActiveRecord implements IdentityInterface
+class Admin extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0; //0
-    const STATUS_ACTIVE = 1000; //10
+    const STATUS_DELETED = 0;
+    const STATUS_ACTIVE = 10;
 
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return '{{%admin}}';
     }
 
     /**
@@ -59,10 +51,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            //['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'default', 'value' => self::STATUS_DELETED],
-            //['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-            //['status', 'string', 'min' => self::STATUS_DELETED, 'max' => self::STATUS_ACTIVE],
+           /* ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],*/
         ];
     }
 
@@ -71,8 +61,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        //return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
-        return static::findOne(['id' => $id]);
+        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -91,8 +80,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        //return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-        return static::findOne(['username' => $username]);
+        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -153,8 +141,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByEmail($email)
     {
-        //return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
-        return static::findOne(['email' => $email]);
+        return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
     }
 
 }

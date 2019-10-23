@@ -38,7 +38,7 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body data-spy="scroll" data-target=".msgbox" data-offset="50">
+<body>
 <?php $this->beginBody() ?>
     <?php
     NavBar::begin([
@@ -72,7 +72,7 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
 <div class="wrap">
 
     <div class="navbar-fixed-bottom row-fluid">
-        <div class="navbar-inner">
+        <div class="navbar-inner" style="overflow-y: scroll;">
             
             <div class="container">
                 <div class="demo">
@@ -131,7 +131,7 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
             function getChat() {
                 $.ajax({
                     type: "POST",
-                    url: "http://127.0.0.1:8080/server/getData.php",
+                    url: "<?= Url::to(['site/getdata']); ?>",
                     dataType: "json",
                     data: { room: 1 }
                 })
@@ -139,7 +139,6 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
                         mount(data.data);
                         $('#msgbox').scrollTop($('#msgbox').scrollHeight);
                     });
-
             }
 
             function mount(data) {
@@ -178,9 +177,10 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
                 if (chatMsg != '') {
                     $.ajax({
                         type: "POST",
-                        url: "http://127.0.0.1:8080/server/saveData.php",
+                        //url: "http://127.0.0.1:8080/server/saveData.php",
+                        url: "<?= Url::to(['site/savedata']); ?>",
                         dataType: "json",
-                        data: { chatMsg: chatMsg }
+                        data: { "chatMsg": chatMsg }
                     })
                         .done(function (data) {
                             //socket.emit('chat message', chatMsg);
@@ -192,7 +192,9 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
             }
 
             function safe(str) {
-                return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                return str.replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;');
             }
         });
     </script>
