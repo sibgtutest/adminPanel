@@ -7,6 +7,7 @@ use app\models\Group;
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="user-form">
@@ -15,7 +16,7 @@ use app\models\Group;
     <?php $form = ActiveForm::begin(); ?>
         <div class="col-lg-4">
 
-            <?= $form->field($model, 'status')->textInput(['value' => '10']); ?><!-- ->dropDownList(\yii\helpers\ArrayHelper::map(Group::find()->all(), '10', 'number')); ?> -->
+            <?= $form->field($model, 'status')->dropDownList(\yii\helpers\ArrayHelper::map(Group::find()->all(), 'id', 'number')); ?>
             <?= $form->field($model, 'studname') ?>
             <?= $form->field($model, 'middlename') ?>
             <?= $form->field($model, 'familyname') ?>
@@ -25,6 +26,7 @@ use app\models\Group;
 
             <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
             <?= $form->field($model, 'email') ?>
+            <?= $form->field($model, 'password')->passwordInput(['maxlength' => true,'placeholder'=>'Enter the Password']) ?>
             <div class="form-group">
                 <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>

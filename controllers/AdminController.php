@@ -33,6 +33,15 @@ class AdminController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['roleRoot'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -112,6 +121,26 @@ class AdminController extends Controller
      * @return mixed
      */
     public function actionSignup()
+    {
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            //var_dump($model);
+            if ($user = $model->signup()) {
+                       // var_dump($user);
+                return Yii::$app->response->redirect(['user/index']);
+            }
+        }
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Форма обновления.
+     *
+     * @return mixed
+     */
+    public function actionUpdate()
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {

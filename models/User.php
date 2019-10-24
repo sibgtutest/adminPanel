@@ -35,6 +35,8 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0; //0
     const STATUS_ACTIVE = 1000; //10
 
+    public $password;
+
     /**
      * @inheritdoc
      */
@@ -52,6 +54,14 @@ class User extends ActiveRecord implements IdentityInterface
             TimestampBehavior::className(),
         ];
     }
+/*
+    public function scenarios(){
+        $scenarios = parent::scenarios();
+        $scenarios['create'] = ['firstname', 'lastname', 'username', 'email', 'role', 'group_user','status', 'password','confirm'];
+        $scenarios['update'] = ['firstname', 'lastname', 'username', 'email', 'role', 'group_user','status'];
+        return $scenarios;
+    }
+*/
 
     /**
      * @inheritdoc
@@ -59,6 +69,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            [['password'],'safe'],
             //['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'default', 'value' => self::STATUS_DELETED],
             //['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],

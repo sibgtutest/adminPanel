@@ -68,10 +68,8 @@ class SignupForm extends Model
         $user->studname = $this->studname;
         $user->middlename = $this->middlename;
         $user->familyname = $this->familyname;
-        //$user->save();
-        //return $user;
         return $user->save() ? $user : null;
-        //return $user->save() ? $user : var_dump($user);
+
     }
 
     /**

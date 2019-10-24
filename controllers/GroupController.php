@@ -15,12 +15,22 @@ use yii\filters\VerbFilter;
  */
 class GroupController extends Controller
 {
+    public $layout = 'admin';
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['roleRoot'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
