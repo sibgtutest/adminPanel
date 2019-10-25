@@ -42,7 +42,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return 'user';
     }
 
     /**
@@ -71,9 +71,15 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             [['password'],'safe'],
             //['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'default', 'value' => self::STATUS_DELETED],
+            ['status', 'integer'],
             //['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             //['status', 'string', 'min' => self::STATUS_DELETED, 'max' => self::STATUS_ACTIVE],
+            [['studname'],'string'],
+            [['middlename'],'string'],
+            [['familyname'],'string'],
+            [['username'],'string'],
+            [['email'],'email'],
+
         ];
     }
 

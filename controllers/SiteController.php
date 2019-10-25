@@ -60,11 +60,6 @@ class SiteController extends Controller
                 'rules' => [
                     [
                         'actions' => ['stud'],
-                        'allow' => false,
-                        'roles' => ['roleRoot'],
-                    ],
-                    [
-                        'actions' => ['stud'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

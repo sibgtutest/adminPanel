@@ -28,7 +28,7 @@ use app\models\Group;
             <?= $form->field($model, 'email') ?>
             <?= $form->field($model, 'password')->passwordInput(['maxlength' => true,'placeholder'=>'Enter the Password']) ?>
             <div class="form-group">
-                <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
             </div>
 
         </div>

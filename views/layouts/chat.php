@@ -98,7 +98,7 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
     </div>
 
 </div>
-<script src="http://127.0.0.1:3000/socket.io/socket.io.js"></script>
+<!-- script src="http://127.0.0.1:3000/socket.io/socket.io.js"></script -->
 <?php $this->endBody() ?>
 
     <script type="text/javascript">
@@ -177,7 +177,6 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
                 if (chatMsg != '') {
                     $.ajax({
                         type: "POST",
-                        //url: "http://127.0.0.1:8080/server/saveData.php",
                         url: "<?= Url::to(['site/savedata']); ?>",
                         dataType: "json",
                         data: { "chatMsg": chatMsg }
