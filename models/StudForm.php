@@ -18,9 +18,9 @@ class StudForm extends Model
     public $middlename;
     public $familyname;
     public $birthdate;
-    public $yearset;
-    public $formeducation;
-    public $lineeducation;
+    public $year;
+    public $form;
+    public $direction;
     public $status;
     
     /**

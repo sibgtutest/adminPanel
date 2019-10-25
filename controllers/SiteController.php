@@ -23,6 +23,7 @@ use app\models\Teachingplan;
 use app\models\UploadTeachingplan;
 use app\models\Data;
 use app\models\Chatmsg;
+use app\models\Group;
 
 class SiteController extends Controller
 {
@@ -333,28 +334,19 @@ class SiteController extends Controller
         $this->layout = 'stud';
         $model = new StudForm();
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
-            }
-        }
         $id = \Yii::$app->user->identity->id;
         $user = User::findOne($id);
         $model->username = $user->username;
         $model->email = $user->email;
-        if (!($contactdetails = Contactdetails::findOne(['userid' => $id]))) {
-            $contactdetails = new Contactdetails();
-        }
-        $model->studname = $contactdetails->studname;
-        $model->middlename = $contactdetails->middlename;
-        $model->familyname = $contactdetails->familyname;
-        $model->birthdate = $contactdetails->birthdate;
-        $model->yearset = $contactdetails->yearset;
-        $model->formeducation = $contactdetails->formeducation;
-        $model->lineeducation = $contactdetails->lineeducation;
-        $model->status = $contactdetails->status;
+        $model->studname = $user->studname;
+        $model->middlename = $user->middlename;
+        $model->familyname = $user->familyname;
+        //$model->birthdate = $contactdetails->birthdate;
+        $group = Group::find()->where(['id' => $user->status])->limit(1)->one();
+        $model->year = $group->year;
+        $model->form = $group->form;
+        $model->direction = $group->direction;
+        $model->status = $group->number;
 
         return $this->render('contactdetails', [
             'stud' => $model]);
