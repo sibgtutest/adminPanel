@@ -9,10 +9,11 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
-use app\models\Contactdetails;
+//use app\models\Contactdetails;
 use yii\helpers\Url;
 
 AppAsset::register($this);
+Yii::setAlias('@WebServer', 'http://127.0.0.1:8080/');
 
 if (Yii::$app->user->isGuest) {
     return Yii::$app->response->redirect(['site/login']);
@@ -23,7 +24,7 @@ $userid= \Yii::$app->user->identity->id;
 //var_dump($userid);
 //exit;
 
-$contactdetails = Contactdetails::findOne(['userid' => $userid]);
+//$contactdetails = Contactdetails::findOne(['userid' => $userid]);
 
 ?>
 <?php $this->beginPage() ?>
@@ -68,135 +69,96 @@ $contactdetails = Contactdetails::findOne(['userid' => $userid]);
     ]);
     NavBar::end();
     ?>
-    
-<div class="wrap">
+<?= $content ?>
 
-    <div class="navbar-fixed-bottom row-fluid">
-        <div class="navbar-inner" style="overflow-y: scroll;">
-            
-            <div class="container">
-                <div class="demo">
-                    <div class="chat">
-                        <div class="msgbox" id="msgbox" class="box">
-                            <div class="messages" id="messages"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<script src="/assets/jquery-2.1.3.min.js"></script>
+<script src="/assets/socket.io-1.2.0.js"></script>
+<script type="text/javascript">
+    const MySocketServer = 'http://localhost:3000';
+    const WebServer = 'http://127.0.0.1:8080';
 
-            <div class="input-group">
-                <span class="input-group-addon">Чат</span>
-                <input id="message_text" 
-                    id="text" 
-                    type="text" 
-                    class="form-control" 
-                    name="message_text" 
-                    placeholder="Additional Info" 
-                    autofocus">
-            </div>                 
-        </div>
-    </div>
-
-</div>
-<!-- script src="http://127.0.0.1:3000/socket.io/socket.io.js"></script -->
-<?php $this->endBody() ?>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var socket = io.connect('http://127.0.0.1:3000');
-            var message_txt = $("#message_text");
-            function msg(message) {
-                message = safe(message);
-                var m = '<div class="msg">' + message + '</div>';
-                $("#messages").append(m).scrollTop($("#messages").scrollHeight);
-            }
-            function msg_system(message) {
-                var m = '<div class="msg system">' + message + '</div>';
-                $("#messages")
-                    .append(m).scrollTop($("#messages").scrollHeight);
-            }
-            socket.on('connecting', function () {
-                msg_system('Соединение...');
-            });
-            socket.on('connect', function () {
-                msg_system('Соединение установлено!');
-                getChat();
-            });
-            socket.on('message', function (data) {
-                msg(data.message);
-                $("#message_text").focus();
-                getChat();
-            });
-
-            function getChat() {
-                $.ajax({
-                    type: "POST",
-                    url: "<?= Url::to(['site/getdata']); ?>",
-                    dataType: "json",
-                    data: { room: 1 }
-                })
-                    .done(function (data) {
-                        mount(data.data);
-                        $('#msgbox').scrollTop($('#msgbox').scrollHeight);
-                    });
-            }
-
-            function mount(data) {
-                var html = "";
-                var cssclass = "brown-color";
-                var img = '';
-                $.each(data, function (index, chat) {
-                    html += '<div>' + chat.user + ' Dummy Guy <i>' + chat.sent_at + '</i>:</span> ' + chat.message + '</div>';
-                });
-
-                $("#msgbox").html(html);
-            }
-
-            $("#message_text").keyup(function (event) {
-                if (event.keyCode == 13) {/*
-                    //var text = '<p><b><?php echo $contactdetails->studname . ' ' . $contactdetails->middlename . ' ' . $contactdetails->familyname ?><br/></b>' + $("#message_text").val() + '<br/></p>';
-                    
-                    var text = '<?php echo $contactdetails->studname . ' ' . $contactdetails->middlename . ' ' . $contactdetails->familyname . ': «' ?>' + $("#message_text").val() + '».';
-                    if (text.length <= 0)
-                        return;
-                    $("#message_text").val("");
-                    socket.emit("message", { message: text });*/
-
-                    //
-                    saveChat();
-                    
-                    return false;
-                    
-                    //
-                }
-                return true;
-            });
-
-            function saveChat() {
-                var chatMsg = $("#message_text").val();
-                if (chatMsg != '') {
-                    $.ajax({
-                        type: "POST",
-                        url: "<?= Url::to(['site/savedata']); ?>",
-                        dataType: "json",
-                        data: { "chatMsg": chatMsg }
-                    })
-                        .done(function (data) {
-                            //socket.emit('chat message', chatMsg);
-                            socket.emit("message", { message: chatMsg });
-                            //mount(data);
-                            $("#message_text").val("");
-                        }); 
-                }
-            }
-
-            function safe(str) {
-                return str.replace(/&/g, '&amp;')
-                            .replace(/</g, '&lt;')
-                            .replace(/>/g, '&gt;');
-            }
+    /*
+    REPLACE THE IO HTTP URL BELLOW, TO YOUR OWN SERVER EX: LOCALHOST OR HTTP://YOURSERVER.COM
+        */
+    var socket_connect = function (room) {
+        return io(MySocketServer, {
+            query: 'r_var=' + room
         });
-    </script>
+    }
+
+    // socket connect: var is the room id
+    // THE ROOM ID IS UP TO YOUR APP OR SESSION
+    var socket = socket_connect(1);
+
+    $(function () {
+        socket.on('chat message', function (msg) {
+            getChat();
+        });
+    });
+
+    function runChat(event) {
+        if (event.which == 13 || event.keyCode == 13) {
+            saveChat();
+            return false;
+        }
+        return true;
+    };
+
+    function saveChat() {
+        var chatMsg = $("#msginput").val();
+        if (chatMsg != '') {
+            $.ajax({
+                type: 'POST',
+                url: "<?= Url::to(['site/savedata']); ?>",
+                dataType: 'json',
+                data: { chatMsg: chatMsg }
+            })
+                .done(function (data) {
+                    socket.emit('chat message', chatMsg);
+                    //mount(data);
+                    $("#msginput").val("");
+                });
+        }
+    }
+
+    function getChat() {
+        $.ajax({
+            type: 'POST',
+            url: "<?= Url::to(['site/getdata']); ?>",
+            dataType: 'json',
+            data: { 'room': 1 }
+        })
+            .done(function (data) {
+                mount(data.data);
+                $('#msgbox').scrollTop($('#msgbox')[0].scrollHeight);
+            });
+
+    }
+
+    function mount(data) {
+        var html = "";
+        var cssclass = "brown-color";
+        var img = '';
+        $.each(data, function (index, chat) {
+            html += '<div>' + chat.user + ' Dummy Guy <i>' + chat.sent_at + '</i>:</span> ' + chat.message + '</div>';
+        });
+
+        $("#msgbox").html(html);
+    }
+
+    $(function () {
+        getChat();
+        $('#msgbox').scrollTop($('#msgbox')[0].scrollHeight);
+        $('#msginput').focus();
+    });
+
+    function updateChat() {
+        getChat();
+        return false;
+    }
+</script>
+
+<?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>

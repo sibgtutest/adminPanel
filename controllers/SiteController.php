@@ -71,6 +71,12 @@ class SiteController extends Controller
                 'actions' => [
                     'logout' => ['post'],
                 ],
+                'actions' => [
+                    'getdata' => ['post'],
+                ],
+                                'actions' => [
+                    'savedata' => ['post'],
+                ],
             ],
         ];
     }
@@ -241,59 +247,12 @@ class SiteController extends Controller
 
     public function actionSavedata()
     {
-        $pdo = new \PDO(
-            'mysql:host=localhost;dbname=chat',
-            'myuser',
-            '1234'
-        );
-
-        $chatMsg = new Chatmsg();
-        //$chatMsg->load($_POST); 
-        //
-        $msg = '12345';
-        $msg = $chatMsg->load(Yii::$app->request->post())->chatMsg();  
-           // var_dump(Yii::$app->request->post());
-            //exit;
-
-           // $msg = '55555';
-         
-        //$msg = 'chatMsg';
-        //$msg = $chatMsg->chatMsg;
-        
-        $time = date("Y-m-d H:i:s");
-
-        # User and Room are fake and hardcoded just for display - this is up to you
-        # REPLACE THE USER VAR BELOW WITH YOUR AUTH SESSION DATA
-        $sql = "Insert into messages (message, user, room, sent_at) values (:msg, 1, 1, '{$time}')";
-        $stmt = $pdo->prepare($sql);
-
-        $stmt->bindParam(':msg', $msg, \PDO::PARAM_STR);
-        $exec = $stmt->execute();
-
-        /**
-         * The user info bellow is a DUMMY
-        */ 
-        if($exec) {
-            print json_encode(['status'=>'saved ok.', 'user'=>'Dummy Guy', 'room'=>1, 'sent_at'=>$time, 'msg'=>$msg]);
-        }else{
-            print json_encode(['status'=>'error while saving.']);
-        }
+ 
     }
 
     public function actionGetdata()
     {
-        $pdo = new \PDO(
-            'mysql:host=localhost;dbname=chat',
-            'myuser',
-            '1234'
-        );
-        $room = 1;
-        $stmt = $pdo->prepare("(SELECT * from messages where room = :room ORDER BY sent_at desc LIMIT 20)ORDER BY id;");
-        $stmt->bindParam(':room', $room, \PDO::PARAM_STR);
-        $stmt->execute();
-        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-        print json_encode(['status'=>'ok', 'data'=>$data]);
     }
 
     public function actionMychat()

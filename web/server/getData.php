@@ -9,7 +9,7 @@ include_once('../../config/pdo.php');
 
 $room = $_POST['room'];
 //$stmt = $pdo->prepare("SELECT * from messages where room = :room order by sent_at asc");
-$stmt = $pdo->prepare("(SELECT * from messages where room = :room ORDER BY sent_at desc LIMIT 10)ORDER BY id;");
+$stmt = $pdo->prepare("(SELECT * from messages where room = :room ORDER BY sent_at desc LIMIT 20)ORDER BY id;");
 $stmt->bindParam(':room', $room, PDO::PARAM_STR);
 $stmt->execute();
 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
