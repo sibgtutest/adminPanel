@@ -115,6 +115,9 @@ class StudentsacademicworkController extends Controller
     {
         $model = $this->findModel($id);
         $userid= \Yii::$app->user->identity->id;
+        if (!($model->userid == $userid)) {
+            return $this->redirect(['index']);
+        }
         $dataProvider = new ActiveDataProvider([
             'query' => Studentsacademicwork::find()->where(['userid' => $userid]),
         ]);

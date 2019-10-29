@@ -7,6 +7,6 @@ $config = require __DIR__ . '/basic.php';
 
 $config['components']['user'] = $user;
 $config['components']['db'] = $db;
-$config['params'][] = $params;
+$config['params'] = $params;
 
 return $config;
