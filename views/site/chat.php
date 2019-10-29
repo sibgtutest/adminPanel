@@ -14,7 +14,7 @@ $this->title = 'Чат';
 <div class="wrap">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-xs-12">
+            <div class="col-md-12 col-xs-12">
                 <div id="msgbox" class="box"></div>
                 <div class="navbar-fixed-bottom row-fluid">
                     <div class="navbar-inner">
@@ -32,15 +32,6 @@ $this->title = 'Чат';
                         </div>
                     </div>
                 </div>   
-            </div>
-            <div class="col-md-6 hidden-xs">
-                <ui>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                </ui>
             </div>
         </div>
     </div>
@@ -129,7 +120,7 @@ $this->title = 'Чат';
         var cssclass = "brown-color";
         var img = '';
         $.each(data, function (index, chat) {
-            html += '<div><b>'
+            html += '<div messages><b>'
                         + "<?= $user->studname . ' ' . $user->middlename . ' ' . $user->familyname . ' ' ?>"
                         + '</b>' + chat.sent_at + '<b>'
                     + '</b></div>'
