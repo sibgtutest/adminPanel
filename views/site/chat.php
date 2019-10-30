@@ -37,7 +37,7 @@ $this->title = 'Чат';
     </div>
 </div>
 
-<script src="/assets/jquery-2.1.3.min.js"></script>
+<script src="/assets/111.js"></script>
 <script src="/assets/socket.io-1.2.0.js"></script>
 <script type="text/javascript">
     const MySocketServer = 'http://127.0.0.1:3000';

@@ -11,7 +11,7 @@ $this->title = 'My Yii Application';
 <div class="row">
 
 <div class="col-sm-4">
-<div class="jumbotron">
+<div class=" thumbnail">
 <a href="http://lfsibgu.ru/sveden/education/#docs">
 <p>Доступ к учебным планам, аннотациям рабочих программам дисциплин (модулей), рабочим программам практик</p>
 </a>

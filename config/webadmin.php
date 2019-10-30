@@ -1,7 +1,7 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/db.php';
+$db = require __DIR__ . '/dbAdmin.php';
 $user = require __DIR__ . '/admin.php';
 $config = require __DIR__ . '/basic.php';
 $urlManager = require __DIR__ . '/urlManager.php';
