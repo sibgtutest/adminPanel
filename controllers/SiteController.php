@@ -46,6 +46,17 @@ class SiteController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::className(),
+                'only' => ['chat'],
+                'rules' => [
+                    [
+                        'actions' => ['chat'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
                 'only' => ['signup'],
                 'rules' => [
                     [
@@ -74,7 +85,7 @@ class SiteController extends Controller
                 'actions' => [
                     'getdata' => ['post'],
                 ],
-                                'actions' => [
+                'actions' => [
                     'savedata' => ['post'],
                 ],
             ],
@@ -240,9 +251,12 @@ class SiteController extends Controller
 
     public function actionChat()
     {
-        $this->layout = 'chat';
+        if (isset(\Yii::$app->user->identity->id)) {
+            $this->layout = 'chat';
+            return $this->render('chat');
+        }
         //$contactdetails = Contactdetails::findOne(['userid' => '5']);
-        return $this->render('chat');
+        return Yii::$app->response->redirect(['site/login']);
     }
 
     public function actionSavedata()

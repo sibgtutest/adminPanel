@@ -17,23 +17,23 @@ $this->title = 'Электронное портфолио обучающегос
 <nav class="navbar navbar-inverse">
   <div class="container-fluid row">
     <ul class="">
-        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Контактные данные &raquo;", ['site/contactdetails']); ?></li></div>
-        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Учебный план &raquo;", ['teachingplan/index']); ?></li></div>
-        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Общественные достижения студента &raquo;", ['studentssocialachievements/index']); ?></li></div>
+        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Контактные данные&nbsp;&raquo;", ['site/contactdetails']); ?></li></div>
+        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Учебный план&nbsp;&raquo;", 'http://lfsibgu.ru/sveden/education/#docs'); ?></li></div>
+        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Общественные достижения студента&nbsp;&raquo;", ['studentssocialachievements/index']); ?></li></div>
     </ul>
   </div> 
   <div class="container-fluid row">
     <ul class="">
-        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Чат &raquo;", ['site/chat']); ?></li></div>
-        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Учебная работа студента &raquo;", ['studentsacademicwork/index']); ?></li></div>
-        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Научные достижения студента &raquo;", ['studentsscientificachievements/index']); ?></li></div>
+        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Чат&nbsp;&raquo;", ['site/chat']); ?></li></div>
+        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Учебная работа студента&nbsp;&raquo;", ['studentsacademicwork/index']); ?></li></div>
+        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Научные достижения студента&nbsp;&raquo;", ['studentsscientificachievements/index']); ?></li></div>
     </ul>
   </div>
   <div class="container-fluid row">
     <ul class=""> 
-        <div class="nav navbar-nav col-sm-4"><li></li></div>
-        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Статьи студента &raquo;", ['studentarticles/index']); ?></li></div>
-        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Спортивные достижения студента &raquo;", ['studentssportingachievements/index']); ?></li></div>
+        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Результаты промежуточной аттестации и результаты освоения программы бакалавриата&nbsp;&raquo;", 'http://lfsibgu.ru/cb-profile'); ?></li></div>
+        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Статьи студента&nbsp;&raquo;", ['studentarticles/index']); ?></li></div>
+        <div class="nav navbar-nav col-sm-4"><li><?= Html::a("Спортивные достижения студента&nbsp;&raquo;", ['studentssportingachievements/index']); ?></li></div>
     </ul>
   </div>
 </nav>

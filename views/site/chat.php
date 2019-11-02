@@ -5,7 +5,10 @@
 use yii\helpers\Url;
 use app\models\User;
 
-$id= \Yii::$app->user->identity->id;
+$id = '';
+if (isset(\Yii::$app->user->identity->id)) {
+    $id= \Yii::$app->user->identity->id;
+}
 
 $user = User::find()->where(['id' => $id])->limit(1)->one();
 
@@ -40,6 +43,7 @@ $this->title = 'Чат';
 <script src="/assets/111.js"></script>
 <script src="/assets/socket.io-1.2.0.js"></script>
 <script type="text/javascript">
+
     const MySocketServer = 'http://127.0.0.1:3000';
     const WebServer = 'http://127.0.0.1:8080';
 
@@ -65,6 +69,7 @@ $this->title = 'Чат';
     function runChat(event) {
         if (event.which == 13 || event.keyCode == 13) {
             saveChat();
+            //$('#msgbox').scrollTop = $('#msgbox').scrollHeight;
             return false;
         }
         return true;
@@ -85,7 +90,8 @@ $this->title = 'Чат';
                     //mount(data);
                     $("#msginput").val("");
                 });
-        }
+        };
+
     }
 
     function escape(string) {
@@ -111,7 +117,7 @@ $this->title = 'Чат';
         })
             .done(function (data) {
                 mount(data.data);
-                $('#msgbox').scrollTop($('#msgbox')[0].scrollHeight);
+                //$('#msgbox').scrollTop($('#msgbox')[0].scrollHeight);
             });
     }
 
@@ -129,17 +135,19 @@ $this->title = 'Чат';
                     + '</div>';
         });
 
-        $("#msgbox").html(html);
+        $("#msgbox").html(html);//.scrollTop($("#msgbox")[0].scrollHeight);
+        $("#msgbox").scrollTop = $("#messages")[0].scrollHeight;
     }
 
     $(function () {
         getChat();
-        $('#msgbox').scrollTop($('#msgbox')[0].scrollHeight);
-        $('#msginput').focus();
+        //$('#msgbox').scrollTop($('#msgbox')[0].scrollHeight);
+        //$('#msginput').focus();
     });
 
     function updateChat() {
         getChat();
         return false;
     }
+    
 </script>   
