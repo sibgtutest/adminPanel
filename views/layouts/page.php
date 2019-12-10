@@ -16,7 +16,7 @@
   <a href="#" class="btn btn-primary btn-lg">Samsung</a>
   <a href="#" class="btn btn-primary btn-lg">Sony</a>
 </div>  
-  </div>
+   </div>
 <div class="container">  
 <div class="row">
   <div class="col-sm-2">
