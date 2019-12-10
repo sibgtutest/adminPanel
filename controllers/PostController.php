@@ -130,4 +130,33 @@ class PostController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    
+    public function actionAdmin($id)
+    {
+        //$this->layout = 'postadmin';
+        
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('admin', [
+            'model' => $model,
+        ]);
+    }
+    public function actionAuthitem($id)
+    {
+        //$this->layout = 'postadmin';
+        
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('admin', [
+            'model' => $model,
+        ]);
+    }
 }

@@ -27,7 +27,7 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'text'], 'string'],
+            [['title', 'text','name','role'], 'string'],
         ];
     }
 
