@@ -10,6 +10,11 @@ $config = [
     ],
     'language'=>'ru',
     'sourceLanguage'=>'ru',
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Module',
+        ],
+    ],
     'components' => [
         
         'request' => [
@@ -27,6 +32,7 @@ $config = [
             'enableAutoLogin' => true,
         ],*/
         /*'user' => $user,*/
+
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
         ],
